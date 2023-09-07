@@ -17,6 +17,14 @@ const RegistrationScreen = ({navigation}) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
+  const [isNameInFocus, setIsNameInFocus] = useState(false);
+  const [isEmailInFocus, setIsEmailInFocus] = useState(false);
+  const [isPasswordInFocus, setPasswordIsInFocus] = useState(false);
+
+  const toggleNameFocus = () => setIsNameInFocus(!isNameInFocus);
+  const toggleEmailFocus = () => setIsEmailInFocus(!isEmailInFocus);
+  const togglePsswordFocus = () => setPasswordIsInFocus(!isPasswordInFocus);
+
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
   const handleRegistrationSubmit = async () => {
@@ -55,24 +63,36 @@ const RegistrationScreen = ({navigation}) => {
               below. All fields are mandatory:
             </Text>
             <TextInput
-              className="h-14 w-full my-4 px-5 py-0 border border-light-grey rounded-2xl font-['FixelDisplay-Regular'] text-base text-black"
+              className={`h-14 w-full my-4 px-5 pb-2 border ${
+                isNameInFocus ? "border-green" : "border-light-grey"
+              } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
               value={fullName}
               onChangeText={setFullName}
+              onFocus={toggleNameFocus}
+              onBlur={toggleNameFocus}
               placeholder="Name"
               blurOnSubmit={true}
             />
             <TextInput
-              className="h-14 w-full mb-4 px-5 border border-light-grey rounded-2xl font-['FixelDisplay-Regular'] text-base text-black"
+              className={`h-14 w-full mb-4 px-5 pb-2 border ${
+                isEmailInFocus ? "border-green" : "border-light-grey"
+              } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
               value={email}
               onChangeText={setEmail}
+              onFocus={toggleEmailFocus}
+              onBlur={toggleEmailFocus}
               placeholder="Email"
               blurOnSubmit={true}
             />
             <View className="w-full mb-8">
               <TextInput
-                className="h-14 pl-5 pr-10 border border-light-grey rounded-2xl font-['FixelDisplay-Regular'] text-base text-black"
+                className={`h-14 pl-5 pr-10 pb-2 border ${
+                  isPasswordInFocus ? "border-green" : "border-light-grey"
+                } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
                 value={password}
                 onChangeText={setPassword}
+                onFocus={togglePsswordFocus}
+                onBlur={togglePsswordFocus}
                 placeholder="Password"
                 blurOnSubmit={true}
                 secureTextEntry={showPassword}
