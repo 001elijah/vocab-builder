@@ -67,6 +67,7 @@ const LoginScreen = ({ navigation }) => {
               onFocus={toggleEmailFocus}
               onBlur={toggleEmailFocus}
               placeholder="Email"
+              placeholderTextColor="#121417"
               blurOnSubmit={true}
             />
             <View className="w-full mb-8">
@@ -79,11 +80,12 @@ const LoginScreen = ({ navigation }) => {
                 onFocus={togglePsswordFocus}
                 onBlur={togglePsswordFocus}
                 placeholder="Password"
+                placeholderTextColor="#121417"
                 blurOnSubmit={true}
                 secureTextEntry={showPassword}
               />
               <TouchableOpacity
-                className="absolute items-center justify-center h-12 w-9 top-1 right-1"
+                className="absolute items-center justify-center h-12 w-9 top-1 right-1 rounded-2xl"
                 activeOpacity={0.5}
                 onPress={toggleShowPassword}
               >

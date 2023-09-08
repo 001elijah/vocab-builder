@@ -1,10 +1,11 @@
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
-import HomeScreen from "./screens/HomeScreen";
+import DictionaryScreen from "./screens/DictionaryScreen";
+import ProfileCard from "./components/ProfileCard";
 
 const Stack = createStackNavigator();
 
@@ -37,16 +38,24 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
+      <Stack.Navigator initialRouteName="DictionaryScreen">
         <Stack.Screen
           name="Auth"
           component={Auth}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }}
+          name="DictionaryScreen"
+          component={DictionaryScreen}
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#fff",
+              height: 121,
+            },
+            headerShadowVisible: false,
+            headerTitle: (props) => <ProfileCard {...props} />,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
