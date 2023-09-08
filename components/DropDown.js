@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
 import React, { useRef, useState } from "react";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
 
-const DropDown = ({ label, data, onSelect }) => {
+const Dropdown = ({ label, data, onSelect }) => {
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState(undefined);
@@ -47,9 +47,7 @@ const DropDown = ({ label, data, onSelect }) => {
             onPress={() => setVisible(false)}
           >
             <View
-              className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md top-[${
-                dropdownTop + 2
-              }px]`}
+              className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md top-[${dropdownTop + 1}px]`}
             >
               <FlatList
                 data={data}
@@ -81,4 +79,4 @@ const DropDown = ({ label, data, onSelect }) => {
   );
 };
 
-export default DropDown;
+export default Dropdown;
