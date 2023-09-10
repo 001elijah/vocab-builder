@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View, Modal, Touchable } from "react-native";
 import ProgressCircle from "../assets/icons/ProgressCircle";
+import EllipsisIcon from "../assets/icons/EllipsisIcon";
+import PencilIcon from "../assets/icons/PencilIcon";
+import TrashBinIcon from "../assets/icons/TrashBinIcon";
+import EditRemoveOptionsWindow from "./EditRemoveOptionsWindow";
 
 const Headers = ({ headerData, setWidths }) => {
   const [setColumn0Width, setColumn1Width, setColumn2Width, setColumn3Width] =
@@ -74,12 +78,31 @@ const Headers = ({ headerData, setWidths }) => {
 };
 
 const DataRow = ({ item, columnsWidth }) => {
+
+  const EditRemoveOptionsButton = useRef();
+  
+  const [visible, setVisible] = useState(false);
+  const [windowTop, setWindowTop] = useState(0);
+
   const [column0Width, column1Width, column2Width, column3Width] = columnsWidth;
-  if ((column0Width, column1Width, column2Width, column3Width)) {
+
+  if (column0Width, column1Width, column2Width, column3Width) {
     const widthZero = Math.round(column0Width * 10) / 10;
     const widthFirst = Math.round(column1Width * 10) / 10;
     const widthSecond = Math.round(column2Width * 10) / 10;
     const widthThird = Math.round(column3Width * 10) / 10;
+
+    const handleOpenModal = () => {
+      visible ? setVisible(false) : openWindow();
+    }
+
+    const openWindow = () => {
+      EditRemoveOptionsButton.current?.measure((_fx, _fy, _w, h, _px, py) => {
+        setWindowTop(py + h);
+      });
+      setVisible(true);
+    };
+
     return (
       <View className="flex-row bg-white">
         <View
@@ -107,12 +130,21 @@ const DataRow = ({ item, columnsWidth }) => {
           </View>
         </View>
         <View
-          className={`flex-1 border-l border-b border-greyBorder items-center`}
+          className={`items-center justify-center border-l border-b border-greyBorder items-center`}
           style={{ width: widthThird }}
         >
-          <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            ...
-          </Text>
+          <TouchableOpacity
+            className="p-2"
+            ref={EditRemoveOptionsButton}
+            onPress={handleOpenModal}
+          >
+            <EditRemoveOptionsWindow
+              visible={visible}
+              setVisible={setVisible}
+              windowTop={windowTop}
+            />
+            <EllipsisIcon />
+          </TouchableOpacity>
         </View>
       </View>
     );
