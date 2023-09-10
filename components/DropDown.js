@@ -47,7 +47,9 @@ const Dropdown = ({ label, data, onSelect }) => {
             onPress={() => setVisible(false)}
           >
             <View
-              className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md top-[${dropdownTop + 1}px]`}
+              className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md top-[${
+                dropdownTop ? dropdownTop + 1 : 266
+              }px]`}
             >
               <FlatList
                 data={data}
@@ -61,7 +63,7 @@ const Dropdown = ({ label, data, onSelect }) => {
     }
   };
   return (
-    <View className="flex-1 mt-4">
+    <View className="mt-4">
       <TouchableOpacity
         ref={DropdownButton}
         className="h-14 px-6 py-0 border border-light-grey rounded-2xl"
