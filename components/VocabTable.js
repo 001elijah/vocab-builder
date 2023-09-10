@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, Text, TouchableOpacity, View, Modal, Touchable } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import ProgressCircle from "../assets/icons/ProgressCircle";
 import EllipsisIcon from "../assets/icons/EllipsisIcon";
-import PencilIcon from "../assets/icons/PencilIcon";
-import TrashBinIcon from "../assets/icons/TrashBinIcon";
 import EditRemoveOptionsWindow from "./EditRemoveOptionsWindow";
 
 const Headers = ({ headerData, setWidths }) => {
@@ -80,7 +78,7 @@ const Headers = ({ headerData, setWidths }) => {
 const DataRow = ({ item, columnsWidth }) => {
 
   const EditRemoveOptionsButton = useRef();
-  
+
   const [visible, setVisible] = useState(false);
   const [windowTop, setWindowTop] = useState(0);
 
