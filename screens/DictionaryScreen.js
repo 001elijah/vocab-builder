@@ -35,7 +35,7 @@ const DictionaryScreen = ({ navigation }) => {
     { label: "Functional phrase", value: "functional phrase" },
   ];
   return (
-    <View className="px-4 justify-start bg-light">
+    <View className="px-4 justify-start h-full bg-light">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
           <SearchBar />
@@ -64,7 +64,7 @@ const DictionaryScreen = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <View className="h-[305px]">
+      <View className="flex-1 mt-8 mb-14">
         <VocabTable />
       </View>
     </View>

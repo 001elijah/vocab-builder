@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, Text, View } from "react-native";
+import ProgressCircle from "../assets/icons/ProgressCircle";
 
 const Headers = ({ headerData, setWidths }) => {
   const [setColumn0Width, setColumn1Width, setColumn2Width, setColumn3Width] =
@@ -86,7 +87,7 @@ const DataRow = ({ item, columnsWidth }) => {
           style={{ width: widthZero }}
         >
           <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.word}
+            {item.en}
           </Text>
         </View>
         <View
@@ -94,16 +95,16 @@ const DataRow = ({ item, columnsWidth }) => {
           style={{ width: widthFirst }}
         >
           <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.translation}
+            {item.ua}
           </Text>
         </View>
         <View
-          className={`border-l border-b border-greyBorder`}
+          className={`items-center justify-center border-l border-b border-greyBorder`}
           style={{ width: widthSecond }}
         >
-          <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.progress}
-          </Text>
+          <View className="-rotate-90">
+            <ProgressCircle progress={item.progress} />
+          </View>
         </View>
         <View
           className={`flex-1 border-l border-b border-greyBorder items-center`}
@@ -127,25 +128,25 @@ const VocabTable = () => {
   const headerData = ["Word", "Translation", "Progress", ""];
 
   const vocabData = [
-    { id: 1, word: "A little bit", translation: "Трохи, трішки", progress: 0.5 },
-    { id: 2, word: "Break in", translation: "Вмішуватися, встрявати", progress: 0.5 },
-    { id: 3, word: "Care", translation: "Турбота, догляд", progress: 1 },
-    { id: 4, word: "During", translation: "Протягом, під час", progress: 0.5 },
-    { id: 5, word: "Care", translation: "Турбота, догляд", progress: 1 },
-    { id: 6, word: "During", translation: "Протягом, під час", progress: 0.5 },
-    { id: 7, word: "A little bit", translation: "Трохи, трішки", progress: 0.5 },
-    { id: 8, word: "Break in", translation: "Вмішуватися, встрявати", progress: 0.5 },
-    { id: 9, word: "Care", translation: "Турбота, догляд", progress: 1 },
-    { id: 10, word: "During", translation: "Протягом, під час", progress: 0.5 },
-    { id: 11, word: "Care", translation: "Турбота, догляд", progress: 1 },
-    { id: 12, word: "During", translation: "Протягом, під час", progress: 0.5 },
-    { id: 13, word: "Care", translation: "Турбота, догляд", progress: 1 },
-    { id: 14, word: "During", translation: "Протягом, під час", progress: 0.5 },
-    { id: 15, word: "A little bit", translation: "Трохи, трішки", progress: 0.5 },
+    { _id: 1, en: "A little bit", ua: "Трохи, трішки", progress: 10 },
+    { _id: 2, en: "Break in", ua: "Вмішуватися, встрявати", progress: 20 },
+    { _id: 3, en: "Care", ua: "Турбота, догляд", progress: 30 },
+    { _id: 4, en: "During", ua: "Протягом, під час", progress: 40 },
+    { _id: 5, en: "Care", ua: "Турбота, догляд", progress: 50 },
+    { _id: 6, en: "During", ua: "Протягом, під час", progress: 60 },
+    { _id: 7, en: "A little bit", ua: "Трохи, трішки", progress: 70 },
+    { _id: 8, en: "Break in", ua: "Вмішуватися, встрявати", progress: 80 },
+    { _id: 9, en: "Care", ua: "Турбота, догляд", progress: 90 },
+    { _id: 10, en: "During", ua: "Протягом, під час", progress: 100 },
+    { _id: 11, en: "Care", ua: "Турбота, догляд", progress: 65 },
+    { _id: 12, en: "During", ua: "Протягом, під час", progress: 75 },
+    { _id: 13, en: "Care", ua: "Турбота, догляд", progress: 55 },
+    { _id: 14, en: "During", ua: "Протягом, під час", progress: 35 },
+    { _id: 15, en: "A little bit", ua: "Трохи, трішки", progress: 25 },
   ];
 
   return (
-    <View className="mt-8">
+    <View>
       <Headers
         headerData={headerData}
         setWidths={[
@@ -169,7 +170,7 @@ const VocabTable = () => {
               ]}
             />
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item._id}
         />
       )}
     </View>
