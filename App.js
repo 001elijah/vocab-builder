@@ -4,8 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
-import DictionaryScreen from "./screens/DictionaryScreen";
-import ProfileCard from "./components/ProfileCard";
+import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createStackNavigator();
 
@@ -38,24 +37,16 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="DictionaryScreen">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Auth"
           component={Auth}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="DictionaryScreen"
-          component={DictionaryScreen}
-          options={{
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: "#fff",
-              height: 121,
-            },
-            headerShadowVisible: false,
-            headerTitle: (props) => <ProfileCard {...props} />,
-          }}
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
