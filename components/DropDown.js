@@ -40,16 +40,15 @@ const Dropdown = ({ label, data, onSelect }) => {
           visible={visible}
           className="absolute"
           transparent
-          animationType="none"
+          animationType="fade"
         >
           <TouchableOpacity
             className="w-full h-full items-center"
             onPress={() => setVisible(false)}
           >
             <View
-              className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md top-[${
-                dropdownTop ? dropdownTop + 1 : 266
-              }px]`}
+              className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md`}
+              style={{top: dropdownTop}}
             >
               <FlatList
                 data={data}

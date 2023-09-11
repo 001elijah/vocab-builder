@@ -12,15 +12,19 @@ import Dropdown from "../components/Dropdown";
 import PlusIcon from "../assets/icons/PlusIcon";
 import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import VocabTable from "../components/VocabTable";
+import EditWindow from "../components/EditWindow";
 
 const DictionaryScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(undefined);
+  const [showEditWindow, setShowEditWindow] = useState(false);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <LogoutButton />,
       headerLeft: () => null,
     });
   });
+
   const data = [
     { label: "Verb", value: "verb" },
     { label: "Participle", value: "participle" },
@@ -64,9 +68,14 @@ const DictionaryScreen = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <Text className="">showEditWindow: {`${showEditWindow}`}</Text>
       <View className="flex-1 mt-8 mb-14">
-        <VocabTable />
+        <VocabTable setShowEditWindow={setShowEditWindow} />
       </View>
+      <EditWindow
+        showEditWindow={showEditWindow}
+        setShowEditWindow={setShowEditWindow}
+      />
     </View>
   );
 };

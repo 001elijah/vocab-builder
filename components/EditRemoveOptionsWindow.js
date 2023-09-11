@@ -1,12 +1,19 @@
 import { View, Text, Modal, TouchableOpacity } from "react-native";
-import React from 'react'
+import React, { useState } from 'react'
 import PencilIcon from '../assets/icons/PencilIcon';
 import TrashBinIcon from '../assets/icons/TrashBinIcon';
 
-const EditRemoveOptionsWindow = ({ visible, setVisible, windowTop }) => {
+const EditRemoveOptionsWindow = ({
+  visible,
+  setVisible,
+  windowTop,
+  setShowEditWindow,
+  handleOpenModal,
+}) => {
   return (
     <>
-        {visible && <Modal visible={visible} transparent animationType="none">
+      {visible && (
+        <Modal visible={visible} transparent animationType="fade">
           <TouchableOpacity
             className="w-full h-full items-center"
             onPress={() => setVisible(false)}
@@ -17,7 +24,10 @@ const EditRemoveOptionsWindow = ({ visible, setVisible, windowTop }) => {
             >
               <TouchableOpacity
                 className="flex-row gap-x-2"
-                onPress={() => alert("Hello Edit")}
+                onPress={() => {
+                  setShowEditWindow(true);
+                  handleOpenModal();
+                }}
               >
                 <PencilIcon />
                 <Text>Edit</Text>
@@ -31,9 +41,10 @@ const EditRemoveOptionsWindow = ({ visible, setVisible, windowTop }) => {
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
-        </Modal>}
+        </Modal>
+      )}
     </>
   );
-}
+};
 
 export default EditRemoveOptionsWindow

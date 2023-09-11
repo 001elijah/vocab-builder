@@ -75,8 +75,7 @@ const Headers = ({ headerData, setWidths }) => {
   );
 };
 
-const DataRow = ({ item, columnsWidth }) => {
-
+const DataRow = ({ item, columnsWidth, setShowEditWindow }) => {
   const EditRemoveOptionsButton = useRef();
 
   const [visible, setVisible] = useState(false);
@@ -84,7 +83,7 @@ const DataRow = ({ item, columnsWidth }) => {
 
   const [column0Width, column1Width, column2Width, column3Width] = columnsWidth;
 
-  if (column0Width, column1Width, column2Width, column3Width) {
+  if ((column0Width, column1Width, column2Width, column3Width)) {
     const widthZero = Math.round(column0Width * 10) / 10;
     const widthFirst = Math.round(column1Width * 10) / 10;
     const widthSecond = Math.round(column2Width * 10) / 10;
@@ -92,7 +91,7 @@ const DataRow = ({ item, columnsWidth }) => {
 
     const handleOpenModal = () => {
       visible ? setVisible(false) : openWindow();
-    }
+    };
 
     const openWindow = () => {
       EditRemoveOptionsButton.current?.measure((_fx, _fy, _w, h, _px, py) => {
@@ -140,6 +139,8 @@ const DataRow = ({ item, columnsWidth }) => {
               visible={visible}
               setVisible={setVisible}
               windowTop={windowTop}
+              setShowEditWindow={setShowEditWindow}
+              handleOpenModal={handleOpenModal}
             />
             <EllipsisIcon />
           </TouchableOpacity>
@@ -149,7 +150,7 @@ const DataRow = ({ item, columnsWidth }) => {
   }
 };
 
-const VocabTable = () => {
+const VocabTable = ({ setShowEditWindow }) => {
   const [column0Width, setColumn0Width] = useState(82);
   const [column1Width, setColumn1Width] = useState(116);
   const [column2Width, setColumn2Width] = useState(95);
@@ -198,6 +199,7 @@ const VocabTable = () => {
                 column2Width,
                 column3Width,
               ]}
+              setShowEditWindow={setShowEditWindow}
             />
           )}
           keyExtractor={(item) => item._id}
