@@ -7,6 +7,7 @@ import ProfileCard from "../components/ProfileCard";
 import OpenedBookIcon from "../assets/icons/OpenedBookIcon";
 import StarIcon from "../assets/icons/StarIcon";
 import EditIcon from "../assets/icons/EditIcon";
+import Dictionary from "./Dictionary";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,15 +30,9 @@ const HomeScreen = () => {
     >
       <Tab.Screen
         name="Dictionary"
-        component={DictionaryScreen}
+        component={Dictionary}
         options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#fff",
-            height: 121,
-          },
-          headerShadowVisible: false,
-          headerTitle: (props) => <ProfileCard {...props} />,
+          headerShown: false,
           tabBarIcon: ({ color }) => <OpenedBookIcon stroke={color} />,
         }}
       />

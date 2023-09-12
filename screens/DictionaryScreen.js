@@ -77,10 +77,7 @@ const DictionaryScreen = ({ navigation }) => {
           </View>
           <View className="mt-2 flex-row items-center">
             <Text className="text-black text-xl">Add word</Text>
-            <TouchableOpacity
-              className="pl-2 pr-4"
-              onPress={() => alert("handleAddWord")}
-            >
+            <TouchableOpacity className="pl-2 pr-4" onPress={() => navigation.navigate("AddWordScreen")}>
               <PlusIcon />
             </TouchableOpacity>
             <Text className="text-black text-xl">Train oneself</Text>
