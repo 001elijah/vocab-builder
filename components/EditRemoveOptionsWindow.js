@@ -9,6 +9,7 @@ const EditRemoveOptionsWindow = ({
   windowTop,
   setShowEditWindow,
   handleOpenModal,
+  setWordsToEditWindow,
 }) => {
   return (
     <>
@@ -25,6 +26,7 @@ const EditRemoveOptionsWindow = ({
               <TouchableOpacity
                 className="flex-row gap-x-2"
                 onPress={() => {
+                  setWordsToEditWindow();
                   setShowEditWindow(true);
                   handleOpenModal();
                 }}

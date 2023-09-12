@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -13,7 +13,7 @@ import HandleIcon from "../assets/icons/HandleIcon";
 import UkraineIcon from "../assets/icons/UkraineIcon";
 import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
 
-const EditWindow = ({ showEditWindow, setShowEditWindow }) => {
+const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
   const [ukrainianWord, setUkrainianWord] = useState("");
   const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
   const [englishWord, setEnglishWord] = useState("");
@@ -22,20 +22,28 @@ const EditWindow = ({ showEditWindow, setShowEditWindow }) => {
     setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
   const toggleEnglishInFocus = () =>
     setIsEnglishWordInFocus(!isEnglishWordInFocus);
+  const handleCancel = () => {
+    setUkrainianWord(ua);
+    setEnglishWord(en);
+    setShowEditWindow(false);
+  }
+  useEffect(() => {
+    setUkrainianWord(ua);
+    setEnglishWord(en);
+  }, [ua, en])
+
   return (
     <>
       {showEditWindow && (
-        <Modal
-          className="relative"
-          visible={showEditWindow}
-          transparent
-          animationType="slide"
-        >
+        <Modal visible={showEditWindow} transparent animationType="slide">
           <TouchableOpacity
             className="w-full h-full items-center"
             onPress={() => setShowEditWindow(false)}
           ></TouchableOpacity>
-          <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-80}>
+          <KeyboardAvoidingView
+            behavior="position"
+            keyboardVerticalOffset={-80}
+          >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View
                 className={`w-full h-[470px] px-4 py-2 absolute bg-greenishGrey rounded-3xl`}
@@ -59,7 +67,7 @@ const EditWindow = ({ showEditWindow, setShowEditWindow }) => {
                     onChangeText={setUkrainianWord}
                     onFocus={toggleUkrainianInFocus}
                     onBlur={toggleUkrainianInFocus}
-                    placeholder={ukrainianWord}
+                    // placeholder={ukrainianWord}
                     placeholderTextColor="#121417"
                     blurOnSubmit={true}
                   />
@@ -79,7 +87,7 @@ const EditWindow = ({ showEditWindow, setShowEditWindow }) => {
                     onChangeText={setEnglishWord}
                     onFocus={toggleEnglishInFocus}
                     onBlur={toggleEnglishInFocus}
-                    placeholder={englishWord}
+                    // placeholder={englishWord}
                     placeholderTextColor="#121417"
                     blurOnSubmit={true}
                   />
@@ -94,7 +102,7 @@ const EditWindow = ({ showEditWindow, setShowEditWindow }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   className="mx-auto bg-transparent mt-4"
-                  onPress={() => alert("handleCancel")}
+                  onPress={handleCancel}
                 >
                   <Text className="font-['FixelDisplay-Bold'] text-grey text-base">
                     Cancel

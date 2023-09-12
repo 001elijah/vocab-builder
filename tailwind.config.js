@@ -12,6 +12,7 @@ module.exports = {
         greenishGrey: "#ECF0EF",
         grey: "rgba(18, 20, 23, 0.50)",
         greyBorder: "#DBDBDB",
+        greyRadioBorder: "rgba(18, 20, 23, 0.20)",
         "light-grey": "rgba(18, 20, 23, 0.10)",
         black: "#121417",
       },

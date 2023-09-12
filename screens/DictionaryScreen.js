@@ -4,7 +4,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
-  KeyboardAvoidingView,
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import LogoutButton from "../components/LogoutButton";
@@ -14,10 +13,13 @@ import PlusIcon from "../assets/icons/PlusIcon";
 import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import VocabTable from "../components/VocabTable";
 import EditWindow from "../components/EditWindow";
+import RadioButtonGroup from "../components/RadioButtonGroup";
 
 const DictionaryScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(undefined);
   const [showEditWindow, setShowEditWindow] = useState(false);
+  const [editWindowUa, setEditWindowUa] = useState("");
+  const [editWindowEn, setEditWindowEn] = useState("");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -45,6 +47,9 @@ const DictionaryScreen = ({ navigation }) => {
         <View>
           <SearchBar />
           <Dropdown label={"Categories"} data={data} onSelect={setSelected} />
+          {selected?.value === "verb"
+            && <RadioButtonGroup
+              data={[{ label: "Regular", value: "regular" }, { label: "Irregular", value: "irregular" }]} />}
           <View className="mt-10 flex-row items-center">
             <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
               To study:
@@ -69,11 +74,16 @@ const DictionaryScreen = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <Text className="">showEditWindow: {`${showEditWindow}`}</Text>
       <View className="flex-1 mt-8 mb-14">
-        <VocabTable setShowEditWindow={setShowEditWindow} />
+        <VocabTable
+          setShowEditWindow={setShowEditWindow}
+          setUa={setEditWindowUa}
+          setEn={setEditWindowEn}
+        />
       </View>
       <EditWindow
+        ua={editWindowUa}
+        en={editWindowEn}
         showEditWindow={showEditWindow}
         setShowEditWindow={setShowEditWindow}
       />

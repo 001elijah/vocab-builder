@@ -75,7 +75,7 @@ const Headers = ({ headerData, setWidths }) => {
   );
 };
 
-const DataRow = ({ item, columnsWidth, setShowEditWindow }) => {
+const DataRow = ({ item, columnsWidth, setShowEditWindow, setUa, setEn }) => {
   const EditRemoveOptionsButton = useRef();
 
   const [visible, setVisible] = useState(false);
@@ -88,6 +88,11 @@ const DataRow = ({ item, columnsWidth, setShowEditWindow }) => {
     const widthFirst = Math.round(column1Width * 10) / 10;
     const widthSecond = Math.round(column2Width * 10) / 10;
     const widthThird = Math.round(column3Width * 10) / 10;
+
+    const setWordsToEditWindow = () => {
+      setUa(item.ua);
+      setEn(item.en);
+    }
 
     const handleOpenModal = () => {
       visible ? setVisible(false) : openWindow();
@@ -140,6 +145,7 @@ const DataRow = ({ item, columnsWidth, setShowEditWindow }) => {
               setVisible={setVisible}
               windowTop={windowTop}
               setShowEditWindow={setShowEditWindow}
+              setWordsToEditWindow={setWordsToEditWindow}
               handleOpenModal={handleOpenModal}
             />
             <EllipsisIcon />
@@ -150,7 +156,7 @@ const DataRow = ({ item, columnsWidth, setShowEditWindow }) => {
   }
 };
 
-const VocabTable = ({ setShowEditWindow }) => {
+const VocabTable = ({ setShowEditWindow, setUa, setEn }) => {
   const [column0Width, setColumn0Width] = useState(82);
   const [column1Width, setColumn1Width] = useState(116);
   const [column2Width, setColumn2Width] = useState(95);
@@ -192,6 +198,8 @@ const VocabTable = ({ setShowEditWindow }) => {
           data={vocabData}
           renderItem={({ item }) => (
             <DataRow
+              setUa={setUa}
+              setEn={setEn}
               item={item}
               columnsWidth={[
                 column0Width,
