@@ -17,6 +17,12 @@ import RadioButtonGroup from "../components/RadioButtonGroup";
 
 const DictionaryScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(undefined);
+
+  const [radioButtonGroupData, setRadioButtonGroupData] = useState([
+    { id: 1, label: "Regular", value: "regular", selected: false },
+    { id: 2, label: "Irregular", value: "irregular", selected: false },
+  ]);
+
   const [showEditWindow, setShowEditWindow] = useState(false);
   const [editWindowUa, setEditWindowUa] = useState("");
   const [editWindowEn, setEditWindowEn] = useState("");
@@ -41,15 +47,28 @@ const DictionaryScreen = ({ navigation }) => {
     { label: "Phrasal verb", value: "phrasal verb" },
     { label: "Functional phrase", value: "functional phrase" },
   ];
+
+  const onRadioBtnClick = (item) => {
+    let updatedState = radioButtonGroupData.map((radioButtonItem) =>
+      radioButtonItem.id === item.id
+        ? { ...radioButtonItem, selected: true }
+        : { ...radioButtonItem, selected: false }
+    );
+    setRadioButtonGroupData(updatedState);
+  };
+
   return (
     <View className="px-4 justify-start h-full bg-light">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
           <SearchBar />
           <Dropdown label={"Categories"} data={data} onSelect={setSelected} />
-          {selected?.value === "verb"
-            && <RadioButtonGroup
-              data={[{ label: "Regular", value: "regular" }, { label: "Irregular", value: "irregular" }]} />}
+          {selected?.value === "verb" && (
+            <RadioButtonGroup
+              data={radioButtonGroupData}
+              onPress={onRadioBtnClick}
+            />
+          )}
           <View className="mt-10 flex-row items-center">
             <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
               To study:

@@ -1,9 +1,13 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-const RadioButton = ({ label, style, selected }) => {
+const RadioButton = ({ radioButtonData, onPress }) => {
+    const { id, label, value, selected } = radioButtonData;
   return (
-    <TouchableOpacity className="mr-4 flex-row items-center gap-x-2">
+    <TouchableOpacity
+      className="mr-4 flex-row items-center gap-x-2"
+      onPress={() => onPress(radioButtonData)}
+    >
       <View
         className={`h-6 w-6 rounded-full border-2 ${
           selected ? "border-green" : "border-greyRadioBorder"
