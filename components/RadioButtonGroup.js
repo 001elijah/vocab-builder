@@ -4,7 +4,7 @@ import RadioButton from "./RadioButton";
 
 const RadioButtonGroup = ({ data, onPress }) => {
   return (
-    <View className="mt-2 flex-row">
+    <View className="mt-2 flex-row flex-wrap">
       {data.map((radioButtonData) => (
         <RadioButton
           key={radioButtonData.id}

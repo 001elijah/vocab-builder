@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
 const RadioButton = ({ radioButtonData, onPress }) => {
-    const { id, label, value, selected } = radioButtonData;
+  const { id, label, value, selected } = radioButtonData;
   return (
     <TouchableOpacity
       className="mr-4 flex-row items-center gap-x-2"
