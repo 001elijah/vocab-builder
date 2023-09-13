@@ -47,7 +47,7 @@ const AddWordScreen = ({ navigation }) => {
             selected={selected}
             onRadioSelect={setRadioSelected}
           />
-          {radioSelected.value === "irregular" && (
+          {radioSelected?.value === "irregular" && (
             <Text className="mt-2 font-['FixelDisplay-Regular'] text-xxs text-black">
               Such data must be entered in the format I form-II form-III form.
             </Text>
