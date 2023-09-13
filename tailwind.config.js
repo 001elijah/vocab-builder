@@ -2,6 +2,9 @@
 module.exports = {
   content: ["./components/**/*.js", "./screens/**/*.js", "./App.js"],
   theme: {
+    fontSize: {
+      xxs: '10px',
+    },
     extend: {
       colors: {
         "bright-white": "#FFFFFF",

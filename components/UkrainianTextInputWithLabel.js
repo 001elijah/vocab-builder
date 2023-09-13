@@ -12,7 +12,7 @@ const UkrainianTextInputWithLabel = ({ua = ""}) => {
     }, [ua]);
   return (
     <View>
-      <View className="mt-5 flex-row items-center gap-x-2">
+      <View className="mt-4 flex-row items-center gap-x-2">
         <UkraineIcon />
         <Text>Ukrainian</Text>
       </View>

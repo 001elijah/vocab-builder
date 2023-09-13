@@ -15,6 +15,7 @@ import EnglishTextInputWithLable from "../components/EnglishTextInputWithLable";
 
 const AddWordScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(undefined);
+  const [radioSelected, setRadioSelected] = useState(undefined);
 
   const handleCancel = () => {
     navigation.goBack();
@@ -44,11 +45,17 @@ const AddWordScreen = ({ navigation }) => {
             label={"Categories"}
             onSelect={setSelected}
             selected={selected}
+            onRadioSelect={setRadioSelected}
           />
+          {radioSelected.value === "irregular" && (
+            <Text className="mt-2 font-['FixelDisplay-Regular'] text-xxs text-black">
+              Such data must be entered in the format I form-II form-III form.
+            </Text>
+          )}
           <UkrainianTextInputWithLabel />
           <EnglishTextInputWithLable />
           <TouchableOpacity
-            className="mt-8 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
+            className="mt-4 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
             onPress={() => alert("handleAdd")}
           >
             <Text className="font-['FixelDisplay-Bold'] text-base text-white">
@@ -56,7 +63,7 @@ const AddWordScreen = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            className="mx-auto bg-transparent mt-2"
+            className="mt-2 mx-auto bg-transparent"
             onPress={handleCancel}
           >
             <Text className="font-['FixelDisplay-Bold'] text-grey text-base">

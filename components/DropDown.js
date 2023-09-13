@@ -7,7 +7,7 @@ import {
   RADIO_BUTTON_GROUP_DATA,
 } from "../assets/utils/constants";
 
-const Dropdown = ({ label, onSelect, selected }) => {
+const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
   const [dropdownTop, setDropdownTop] = useState(0);
@@ -18,9 +18,14 @@ const Dropdown = ({ label, onSelect, selected }) => {
 
   const onRadioBtnClick = (item) => {
     let updatedState = radioButtonGroupData.map((radioButtonItem) =>
-      radioButtonItem.id === item.id
-        ? { ...radioButtonItem, selected: true }
-        : { ...radioButtonItem, selected: false }
+    {
+      if (radioButtonItem.id === item.id) {
+        onRadioSelect({ ...radioButtonItem, selected: true });
+        return { ...radioButtonItem, selected: true };
+      } else {
+        return { ...radioButtonItem, selected: false };
+      }
+    }
     );
     setRadioButtonGroupData(updatedState);
   };
