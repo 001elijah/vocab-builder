@@ -15,8 +15,8 @@ import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
 
 const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
   const [ukrainianWord, setUkrainianWord] = useState("");
-  const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
   const [englishWord, setEnglishWord] = useState("");
+  const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
   const [isEnglishWordInFocus, setIsEnglishWordInFocus] = useState(false);
   const toggleUkrainianInFocus = () =>
     setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
@@ -101,7 +101,7 @@ const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  className="mx-auto bg-transparent mt-4"
+                  className="mx-auto bg-transparent mt-2"
                   onPress={handleCancel}
                 >
                   <Text className="font-['FixelDisplay-Bold'] text-grey text-base">
