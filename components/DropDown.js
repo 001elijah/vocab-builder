@@ -20,7 +20,7 @@ const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
     let updatedState = radioButtonGroupData.map((radioButtonItem) =>
     {
       if (radioButtonItem.id === item.id) {
-        onRadioSelect({ ...radioButtonItem, selected: true });
+        onRadioSelect && onRadioSelect({ ...radioButtonItem, selected: true });
         return { ...radioButtonItem, selected: true };
       } else {
         return { ...radioButtonItem, selected: false };

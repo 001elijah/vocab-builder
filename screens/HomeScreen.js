@@ -42,6 +42,14 @@ const HomeScreen = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <StarIcon stroke={color} />,
+          headerShown: true,
+          title: "Recommend",
+          headerStyle: {
+            backgroundColor: "#fff",
+            height: 121,
+          },
+          headerShadowVisible: false,
+          headerTitle: (props) => <ProfileCard {...props} />,
         }}
       />
       <Tab.Screen
