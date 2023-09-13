@@ -1,36 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   TouchableOpacity,
   Modal,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
 import HandleIcon from "../assets/icons/HandleIcon";
-import UkraineIcon from "../assets/icons/UkraineIcon";
-import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
+import UkrainianTextInputWithLabel from "./UkrainianTextInputWithLabel";
+import EnglishTextInputWithLable from "./EnglishTextInputWithLable";
 
 const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
-  const [ukrainianWord, setUkrainianWord] = useState("");
-  const [englishWord, setEnglishWord] = useState("");
-  const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
-  const [isEnglishWordInFocus, setIsEnglishWordInFocus] = useState(false);
-  const toggleUkrainianInFocus = () =>
-    setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
-  const toggleEnglishInFocus = () =>
-    setIsEnglishWordInFocus(!isEnglishWordInFocus);
   const handleCancel = () => {
-    setUkrainianWord(ua);
-    setEnglishWord(en);
     setShowEditWindow(false);
-  }
-  useEffect(() => {
-    setUkrainianWord(ua);
-    setEnglishWord(en);
-  }, [ua, en])
+  };
 
   return (
     <>
@@ -52,46 +37,8 @@ const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
                 <View className="mx-auto">
                   <HandleIcon />
                 </View>
-                <View>
-                  <View className="mt-5 flex-row items-center gap-x-2">
-                    <UkraineIcon />
-                    <Text>Ukrainian</Text>
-                  </View>
-                  <TextInput
-                    className={`h-14 w-full mt-2 px-5 pb-2 align-middle border ${
-                      isUkrainianWordInFocus
-                        ? "border-green"
-                        : "border-light-grey"
-                    } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
-                    value={ukrainianWord}
-                    onChangeText={setUkrainianWord}
-                    onFocus={toggleUkrainianInFocus}
-                    onBlur={toggleUkrainianInFocus}
-                    // placeholder={ukrainianWord}
-                    placeholderTextColor="#121417"
-                    blurOnSubmit={true}
-                  />
-                </View>
-                <View>
-                  <View className="mt-6 flex-row items-center gap-x-2">
-                    <UnitedKingdomIcon />
-                    <Text>English</Text>
-                  </View>
-                  <TextInput
-                    className={`h-14 w-full mt-2 px-5 pb-2 align-middle border ${
-                      isEnglishWordInFocus
-                        ? "border-green"
-                        : "border-light-grey"
-                    } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
-                    value={englishWord}
-                    onChangeText={setEnglishWord}
-                    onFocus={toggleEnglishInFocus}
-                    onBlur={toggleEnglishInFocus}
-                    // placeholder={englishWord}
-                    placeholderTextColor="#121417"
-                    blurOnSubmit={true}
-                  />
-                </View>
+                <UkrainianTextInputWithLabel ua={ua} />
+                <EnglishTextInputWithLable en={en} />
                 <TouchableOpacity
                   className="mt-8 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
                   onPress={() => alert("handleSave")}

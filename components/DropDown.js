@@ -1,12 +1,29 @@
 import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
 import React, { useRef, useState } from "react";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
+import RadioButtonGroup from "./RadioButtonGroup";
+import {
+  DROPWDOWN_DATA,
+  RADIO_BUTTON_GROUP_DATA,
+} from "../assets/utils/constants";
 
-const Dropdown = ({ label, data, onSelect }) => {
+const Dropdown = ({ label, onSelect, selected }) => {
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(undefined);
   const [dropdownTop, setDropdownTop] = useState(0);
+
+  const [radioButtonGroupData, setRadioButtonGroupData] = useState(
+    RADIO_BUTTON_GROUP_DATA
+  );
+
+  const onRadioBtnClick = (item) => {
+    let updatedState = radioButtonGroupData.map((radioButtonItem) =>
+      radioButtonItem.id === item.id
+        ? { ...radioButtonItem, selected: true }
+        : { ...radioButtonItem, selected: false }
+    );
+    setRadioButtonGroupData(updatedState);
+  };
 
   const toggleDropdown = () => {
     visible ? setVisible(false) : openDropdown();
@@ -20,14 +37,17 @@ const Dropdown = ({ label, data, onSelect }) => {
   };
 
   const onItemPress = (item) => {
-    setSelected(item);
     onSelect(item);
     setVisible(false);
   };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity className="py-2" onPress={() => onItemPress(item)}>
-      <Text className={`font-['FixelDisplay-Regular'] text-base ${selected?.label === item.label ? 'text-green' : 'text-black'}`}>
+      <Text
+        className={`font-['FixelDisplay-Regular'] text-base ${
+          selected?.label === item.label ? "text-green" : "text-black"
+        }`}
+      >
         {item.label}
       </Text>
     </TouchableOpacity>
@@ -48,10 +68,10 @@ const Dropdown = ({ label, data, onSelect }) => {
           >
             <View
               className={`w-[343px] h-[240px] px-6 py-1 absolute bg-bright-white rounded-2xl shadow-md`}
-              style={{top: dropdownTop}}
+              style={{ top: dropdownTop }}
             >
               <FlatList
-                data={data}
+                data={DROPWDOWN_DATA}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
               />
@@ -76,6 +96,12 @@ const Dropdown = ({ label, data, onSelect }) => {
           <ChevronDownIcon />
         </View>
       </TouchableOpacity>
+      {selected?.value === "verb" && (
+        <RadioButtonGroup
+          data={radioButtonGroupData}
+          onPress={onRadioBtnClick}
+        />
+      )}
     </View>
   );
 };
