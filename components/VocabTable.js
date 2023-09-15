@@ -3,6 +3,8 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import ProgressCircle from "../assets/icons/ProgressCircle";
 import EllipsisIcon from "../assets/icons/EllipsisIcon";
 import EditRemoveOptionsWindow from "./EditRemoveOptionsWindow";
+import { vocabData } from "../services/backendAPI";
+import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 
 const Headers = ({ headerData, setWidths }) => {
   const [setColumn0Width, setColumn1Width, setColumn2Width, setColumn3Width] =
@@ -75,7 +77,15 @@ const Headers = ({ headerData, setWidths }) => {
   );
 };
 
-const DataRow = ({ item, columnsWidth, setShowEditWindow, setUa, setEn }) => {
+const DataRow = ({
+  routeName,
+  headerData,
+  item,
+  columnsWidth,
+  setShowEditWindow,
+  setUa,
+  setEn,
+}) => {
   const EditRemoveOptionsButton = useRef();
 
   const [visible, setVisible] = useState(false);
@@ -92,7 +102,7 @@ const DataRow = ({ item, columnsWidth, setShowEditWindow, setUa, setEn }) => {
     const setWordsToEditWindow = () => {
       setUa(item.ua);
       setEn(item.en);
-    }
+    };
 
     const handleOpenModal = () => {
       visible ? setVisible(false) : openWindow();
@@ -112,7 +122,7 @@ const DataRow = ({ item, columnsWidth, setShowEditWindow, setUa, setEn }) => {
           style={{ width: widthZero }}
         >
           <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.en}
+            {item.en.charAt(0).toUpperCase() + item.en.slice(1)}
           </Text>
         </View>
         <View
@@ -120,67 +130,72 @@ const DataRow = ({ item, columnsWidth, setShowEditWindow, setUa, setEn }) => {
           style={{ width: widthFirst }}
         >
           <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.ua}
+            {item.ua.charAt(0).toUpperCase() + item.ua.slice(1)}
           </Text>
         </View>
         <View
           className={`items-center justify-center border-l border-b border-greyBorder`}
           style={{ width: widthSecond }}
         >
-          <View className="-rotate-90">
-            <ProgressCircle progress={item.progress} />
-          </View>
+          {headerData[2] === "Progress" ? (
+            <View className="-rotate-90">
+              <ProgressCircle progress={item[headerData[2].toLowerCase()]} />
+            </View>
+          ) : (
+            <View>
+              <Text className="px-3 py-4 font-['FixelDisplay-Regular'] text-base text-black">
+                {item[headerData[2].toLowerCase()].charAt(0).toUpperCase() +
+                  item[headerData[2].toLowerCase()].slice(1)}
+              </Text>
+            </View>
+          )}
         </View>
         <View
           className={`items-center justify-center border-l border-b border-greyBorder items-center`}
           style={{ width: widthThird }}
         >
-          <TouchableOpacity
-            className="p-2"
-            ref={EditRemoveOptionsButton}
-            onPress={handleOpenModal}
-          >
-            <EditRemoveOptionsWindow
-              visible={visible}
-              setVisible={setVisible}
-              windowTop={windowTop}
-              setShowEditWindow={setShowEditWindow}
-              setWordsToEditWindow={setWordsToEditWindow}
-              handleOpenModal={handleOpenModal}
-            />
-            <EllipsisIcon />
-          </TouchableOpacity>
+          {routeName === "DictionaryScreen" ? (
+            <TouchableOpacity
+              className="p-2"
+              ref={EditRemoveOptionsButton}
+              onPress={handleOpenModal}
+            >
+              <EditRemoveOptionsWindow
+                visible={visible}
+                setVisible={setVisible}
+                windowTop={windowTop}
+                setShowEditWindow={setShowEditWindow}
+                setWordsToEditWindow={setWordsToEditWindow}
+                handleOpenModal={handleOpenModal}
+              />
+              <EllipsisIcon />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              className="p-2"
+              ref={EditRemoveOptionsButton}
+              onPress={() => alert("handleAddToDictionary")}
+            >
+              <ArrowRightIcon />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );
   }
 };
 
-const VocabTable = ({ setShowEditWindow, setUa, setEn }) => {
+const VocabTable = ({
+  routeName,
+  headerData,
+  setShowEditWindow,
+  setUa,
+  setEn,
+}) => {
   const [column0Width, setColumn0Width] = useState(82);
   const [column1Width, setColumn1Width] = useState(116);
   const [column2Width, setColumn2Width] = useState(95);
   const [column3Width, setColumn3Width] = useState(50);
-
-  const headerData = ["Word", "Translation", "Progress", ""];
-
-  const vocabData = [
-    { _id: 1, en: "A little bit", ua: "Трохи, трішки", progress: 10 },
-    { _id: 2, en: "Break in", ua: "Вмішуватися, встрявати", progress: 20 },
-    { _id: 3, en: "Care", ua: "Турбота, догляд", progress: 30 },
-    { _id: 4, en: "During", ua: "Протягом, під час", progress: 40 },
-    { _id: 5, en: "Care", ua: "Турбота, догляд", progress: 50 },
-    { _id: 6, en: "During", ua: "Протягом, під час", progress: 60 },
-    { _id: 7, en: "A little bit", ua: "Трохи, трішки", progress: 70 },
-    { _id: 8, en: "Break in", ua: "Вмішуватися, встрявати", progress: 80 },
-    { _id: 9, en: "Care", ua: "Турбота, догляд", progress: 90 },
-    { _id: 10, en: "During", ua: "Протягом, під час", progress: 100 },
-    { _id: 11, en: "Care", ua: "Турбота, догляд", progress: 65 },
-    { _id: 12, en: "During", ua: "Протягом, під час", progress: 75 },
-    { _id: 13, en: "Care", ua: "Турбота, догляд", progress: 55 },
-    { _id: 14, en: "During", ua: "Протягом, під час", progress: 35 },
-    { _id: 15, en: "A little bit", ua: "Трохи, трішки", progress: 25 },
-  ];
 
   return (
     <View>
@@ -198,6 +213,8 @@ const VocabTable = ({ setShowEditWindow, setUa, setEn }) => {
           data={vocabData}
           renderItem={({ item }) => (
             <DataRow
+              routeName={routeName}
+              headerData={headerData}
               setUa={setUa}
               setEn={setEn}
               item={item}

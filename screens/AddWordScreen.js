@@ -55,7 +55,7 @@ const AddWordScreen = ({ navigation }) => {
           <UkrainianTextInputWithLabel />
           <EnglishTextInputWithLable />
           <TouchableOpacity
-            className="mt-4 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
+            className="mt-6 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
             onPress={() => alert("handleAdd")}
           >
             <Text className="font-['FixelDisplay-Bold'] text-base text-white">

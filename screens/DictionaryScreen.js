@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
+import { useRoute } from "@react-navigation/native";
 import LogoutButton from "../components/LogoutButton";
 import SearchBar from "../components/SearchBar";
 import Dropdown from "../components/Dropdown";
@@ -13,8 +14,11 @@ import PlusIcon from "../assets/icons/PlusIcon";
 import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import VocabTable from "../components/VocabTable";
 import EditWindow from "../components/EditWindow";
+import { DICTIONARY_TABLE_HEADERS } from "../assets/utils/constants";
 
 const DictionaryScreen = ({ navigation }) => {
+  const route = useRoute();
+  
   const [selected, setSelected] = useState(undefined);
 
   const [showEditWindow, setShowEditWindow] = useState(false);
@@ -55,7 +59,7 @@ const DictionaryScreen = ({ navigation }) => {
             <Text className="text-black text-xl">Train oneself</Text>
             <TouchableOpacity
               className="pl-2"
-              onPress={() => alert("handleTrainOneself")}
+              onPress={() => navigation.navigate("Training")}
             >
               <ArrowRightIcon />
             </TouchableOpacity>
@@ -64,6 +68,8 @@ const DictionaryScreen = ({ navigation }) => {
       </TouchableWithoutFeedback>
       <View className="flex-1 mt-8 mb-14">
         <VocabTable
+          routeName={route.name}
+          headerData={DICTIONARY_TABLE_HEADERS}
           setShowEditWindow={setShowEditWindow}
           setUa={setEditWindowUa}
           setEn={setEditWindowEn}
