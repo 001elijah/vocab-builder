@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
   return (
     <Tab.Navigator
-      initialRouteName={"Dictionary"}
+      initialRouteName={"Training"}
       screenOptions={{
         tabBarActiveTintColor: "rgba(252, 252, 252, 1)",
         tabBarInactiveTintColor: "rgba(252, 252, 252, 0.5)",
@@ -40,9 +40,7 @@ const HomeScreen = () => {
         name="Recommend"
         component={RecommendScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <StarIcon stroke={color} />,
-          headerShown: true,
           title: "Recommend",
           headerStyle: {
             backgroundColor: "#fff",
@@ -56,8 +54,14 @@ const HomeScreen = () => {
         name="Training"
         component={TrainingScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => <EditIcon stroke={color} />,
+          title: "Training",
+          headerStyle: {
+            backgroundColor: "#fff",
+            height: 121,
+          },
+          headerShadowVisible: false,
+          headerTitle: (props) => <ProfileCard {...props} />,
         }}
       />
     </Tab.Navigator>

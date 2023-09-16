@@ -13,10 +13,6 @@ const RecommendScreen = ({ navigation }) => {
 
   const [selected, setSelected] = useState(undefined);
 
-  const [showEditWindow, setShowEditWindow] = useState(false);
-  const [editWindowUa, setEditWindowUa] = useState("");
-  const [editWindowEn, setEditWindowEn] = useState("");
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <LogoutButton />,
