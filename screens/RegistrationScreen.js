@@ -10,8 +10,14 @@ import {
 import React, { useState } from 'react';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import EyeIcon from "../assets/icons/EyeIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../redux/auth/authOperations";
+import { selectError } from "../redux/auth/authSelectors";
 
-const RegistrationScreen = ({navigation}) => {
+const RegistrationScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const error = useSelector(selectError);
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,15 +36,15 @@ const RegistrationScreen = ({navigation}) => {
   const handleRegistrationSubmit = async () => {
     Keyboard.dismiss();
     const newUserData = {
-      fullName: fullName,
+      name: fullName,
       email: email,
       password: password,
     };
-    console.log("sumbit =>", JSON.stringify(newUserData, null, 2));
-    // dispatch(register(newUserData));
-    setFullName("");
-    setEmail("");
-    setPassword("");
+    // console.log("sumbit =>", JSON.stringify(newUserData, null, 2));
+    dispatch(register(newUserData));
+    // setFullName("");
+    // setEmail("");
+    // setPassword("");
     // navigation.replace("LoginScreen");
   };
 

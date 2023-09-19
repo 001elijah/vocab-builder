@@ -10,8 +10,14 @@ import {
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import EyeIcon from "../assets/icons/EyeIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/auth/authOperations";
+import { selectUser } from "../redux/auth/authSelectors";
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser)
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
@@ -24,16 +30,16 @@ const LoginScreen = ({ navigation }) => {
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
-  const handleRegistrationSubmit = async () => {
+  const handleLoginSubmit = async () => {
     Keyboard.dismiss();
-    const newUserData = {
+    const userData = {
       email: email,
       password: password,
     };
-    console.log("sumbit =>", JSON.stringify(newUserData, null, 2));
-    // dispatch(register(newUserData));
-    setEmail("");
-    setPassword("");
+    // console.log("sumbit =>", JSON.stringify(newUserData, null, 2));
+    dispatch(login(userData));
+    // setEmail("");
+    // setPassword("");
     // navigation.replace("LoginScreen");
   };
   return (
@@ -94,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
             </View>
             <TouchableOpacity
               className="flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
-              onPress={handleRegistrationSubmit}
+              onPress={handleLoginSubmit}
             >
               <Text className="font-['FixelDisplay-Bold'] text-base text-white">
                 Login

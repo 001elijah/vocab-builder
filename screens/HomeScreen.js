@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 const HomeScreen = () => {
   return (
     <Tab.Navigator
-      initialRouteName={"Training"}
+      initialRouteName={"Dictionary"}
       screenOptions={{
         tabBarActiveTintColor: "rgba(252, 252, 252, 1)",
         tabBarInactiveTintColor: "rgba(252, 252, 252, 0.5)",
