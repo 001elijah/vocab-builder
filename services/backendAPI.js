@@ -164,3 +164,8 @@ export const getWordsCategories = async () => {
   const { data } = await axios.get("/words/categories");
   return data;
 }
+
+export const createWord = async (newWordData) => {
+  const { data } = await axios.post("/words/create", newWordData);
+  return data;
+}

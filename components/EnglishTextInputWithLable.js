@@ -1,15 +1,16 @@
-import { View, Text, TextInput } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import UnitedKingdomIcon from '../assets/icons/UnitedKingdomIcon';
+import { View, Text, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
 
-const EnglishTextInputWithLable = ({ en = "" }) => {
-    const [englishWord, setEnglishWord] = useState("");
-    const [isEnglishWordInFocus, setIsEnglishWordInFocus] = useState(false);
-    const toggleEnglishInFocus = () =>
-        setIsEnglishWordInFocus(!isEnglishWordInFocus);
-    useEffect(() => {
-      setEnglishWord(en);
-    }, [en]);
+const EnglishTextInputWithLable = ({ en = "", setEn }) => {
+  const [englishWord, setEnglishWord] = useState("");
+  const [isEnglishWordInFocus, setIsEnglishWordInFocus] = useState(false);
+  const toggleEnglishInFocus = () =>
+    setIsEnglishWordInFocus(!isEnglishWordInFocus);
+  useEffect(() => {
+    setEnglishWord(en);
+  }, [en]);
+  setEn(englishWord);
   return (
     <View>
       <View className="mt-6 flex-row items-center gap-x-2">
@@ -29,6 +30,6 @@ const EnglishTextInputWithLable = ({ en = "" }) => {
       />
     </View>
   );
-}
+};
 
-export default EnglishTextInputWithLable
+export default EnglishTextInputWithLable;

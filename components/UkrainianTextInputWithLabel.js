@@ -1,15 +1,17 @@
-import { View, Text, TextInput } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import UkraineIcon from '../assets/icons/UkraineIcon';
+import { View, Text, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import UkraineIcon from "../assets/icons/UkraineIcon";
 
-const UkrainianTextInputWithLabel = ({ua = ""}) => {
-    const [ukrainianWord, setUkrainianWord] = useState("");
-    const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
-    const toggleUkrainianInFocus = () =>
-        setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
-    useEffect(() => {
-      setUkrainianWord(ua);
-    }, [ua]);
+const UkrainianTextInputWithLabel = ({ ua = "", setUa }) => {
+  const [ukrainianWord, setUkrainianWord] = useState("");
+  const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
+  const toggleUkrainianInFocus = () =>
+    setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
+
+  useEffect(() => {
+    setUkrainianWord(ua);
+  }, [ua]);
+  setUa(ukrainianWord);
   return (
     <View>
       <View className="mt-4 flex-row items-center gap-x-2">
@@ -29,6 +31,6 @@ const UkrainianTextInputWithLabel = ({ua = ""}) => {
       />
     </View>
   );
-}
+};
 
-export default UkrainianTextInputWithLabel
+export default UkrainianTextInputWithLabel;
