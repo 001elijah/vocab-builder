@@ -3,11 +3,14 @@ import React, { useRef, useState } from "react";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
 import RadioButtonGroup from "./RadioButtonGroup";
 import {
-  DROPWDOWN_DATA,
   RADIO_BUTTON_GROUP_DATA,
 } from "../assets/utils/constants";
+import { selectCategories } from "../redux/words/wordsSelectors";
+import { useSelector } from "react-redux";
 
 const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
+  const categories = useSelector(selectCategories);
+  
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
   const [dropdownTop, setDropdownTop] = useState(0);
@@ -50,10 +53,10 @@ const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
     <TouchableOpacity className="py-2" onPress={() => onItemPress(item)}>
       <Text
         className={`font-['FixelDisplay-Regular'] text-base ${
-          selected?.label === item.label ? "text-green" : "text-black"
+          selected === item ? "text-green" : "text-black"
         }`}
       >
-        {item.label}
+        {item.charAt(0).toUpperCase() + item.slice(1)}
       </Text>
     </TouchableOpacity>
   );
@@ -76,7 +79,7 @@ const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
               style={{ top: dropdownTop }}
             >
               <FlatList
-                data={DROPWDOWN_DATA}
+                data={categories}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
               />
@@ -96,12 +99,13 @@ const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
         {renderDropdown()}
         <View className="flex-1 flex-row items-center justify-between">
           <Text className="flex-1 font-['FixelDisplay-Regular'] text-base text-black">
-            {(selected && selected.label) || label}
+            {(selected && selected.charAt(0).toUpperCase() + selected.slice(1)) ||
+              label}
           </Text>
           <ChevronDownIcon />
         </View>
       </TouchableOpacity>
-      {selected?.value === "verb" && (
+      {selected === "verb" && (
         <RadioButtonGroup
           data={radioButtonGroupData}
           onPress={onRadioBtnClick}

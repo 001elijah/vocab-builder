@@ -21,6 +21,7 @@ export const register = createAsyncThunk(
         },
       };
     } catch (error) {
+      alert(error.response.data.message);
       return rejectWithValue(error?.response?.data?.message ?? error.message);
     }
   }
@@ -28,9 +29,9 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "authorized/login",
-    async ({ email, password }, { rejectWithValue }) => {
-        try {
-            const userData = await loginUserApi({ email, password });
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const userData = await loginUserApi({ email, password });
       // setTimeout(() => {
       //   dispatch(getCurrentUserInfo());
       // }, 0);
@@ -43,7 +44,8 @@ export const login = createAsyncThunk(
         },
       };
     } catch (error) {
-      return rejectWithValue("Email or password is wrong");
+      alert(error.response.data.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -63,6 +65,7 @@ export const getCurrentUserInfo = createAsyncThunk(
         },
       };
     } catch (error) {
+      alert(error.response.data.message);
       return rejectWithValue(error.message);
     }
   },
@@ -75,7 +78,7 @@ export const getCurrentUserInfo = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  "auth/logout",
+  "authorized/logout",
   async (_, { rejectWithValue, getState }) => {
     const { token } = getState().authorized.user;
     try {

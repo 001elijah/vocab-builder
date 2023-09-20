@@ -12,11 +12,11 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import authReducer from "./auth/authSlice";
+import wordsReducer from "./words/wordsSlice";
 
 const authPersistConfig = {
   key: "user",
   storage: AsyncStorage,
-  whitelist: ["user"],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
@@ -24,6 +24,7 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     authorized: persistedAuthReducer,
+    words: wordsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

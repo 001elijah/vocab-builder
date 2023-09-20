@@ -7,16 +7,17 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import EyeIcon from "../assets/icons/EyeIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/auth/authOperations";
-import { selectError } from "../redux/auth/authSelectors";
+import { selectAuthorized, selectError } from "../redux/auth/authSelectors";
 
 const RegistrationScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
+  const isAuthorized = useSelector(selectAuthorized);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,13 +41,13 @@ const RegistrationScreen = ({ navigation }) => {
       email: email,
       password: password,
     };
-    // console.log("sumbit =>", JSON.stringify(newUserData, null, 2));
+
     dispatch(register(newUserData));
-    // setFullName("");
-    // setEmail("");
-    // setPassword("");
-    // navigation.replace("LoginScreen");
   };
+
+  useEffect(() => {
+    isAuthorized && navigation.replace("Home");
+  }, [isAuthorized]);
 
   return (
     <KeyboardAwareScrollView

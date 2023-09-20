@@ -48,7 +48,8 @@ const authSlice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, { payload }) => {
-          state.error = payload;
+            state.error = payload;
+            state.user.token = null;
         }
       );
   },

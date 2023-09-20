@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import DictionaryScreen from "./DictionaryScreen";
 import RecommendScreen from "./RecommendScreen";
 import TrainingScreen from "./TrainingScreen";
 import ProfileCard from "../components/ProfileCard";
@@ -8,10 +7,20 @@ import OpenedBookIcon from "../assets/icons/OpenedBookIcon";
 import StarIcon from "../assets/icons/StarIcon";
 import EditIcon from "../assets/icons/EditIcon";
 import Dictionary from "./Dictionary";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCategories } from "../redux/words/wordsSelectors";
+import { getCategories } from "../redux/words/wordsOperations";
 
 const Tab = createBottomTabNavigator();
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+  useEffect(() => {
+    if (!categories) {
+      dispatch(getCategories());
+    }
+  }, []);
   return (
     <Tab.Navigator
       initialRouteName={"Dictionary"}
