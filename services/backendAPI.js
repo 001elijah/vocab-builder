@@ -163,9 +163,24 @@ export const logoutUserApi = async (userToken) => {
 export const getWordsCategories = async () => {
   const { data } = await axios.get("/words/categories");
   return data;
-}
+};
 
 export const createWord = async (newWordData) => {
   const { data } = await axios.post("/words/create", newWordData);
   return data;
-}
+};
+
+export const getAllWords = async (queryParams) => {
+  // { params: { keyword, category, isIrregular, page, limit } }
+  const { data } = await axios.get("/words/all", {
+    params: { ...queryParams },
+  });
+  return data;
+};
+
+export const addWord = async (queryParams) => {
+  const { data } = await axios.post("/words/add", {
+    params: { ...queryParams },
+  });
+  return data;
+};

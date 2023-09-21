@@ -3,8 +3,9 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import ProgressCircle from "../assets/icons/ProgressCircle";
 import EllipsisIcon from "../assets/icons/EllipsisIcon";
 import EditRemoveOptionsWindow from "./EditRemoveOptionsWindow";
-import { vocabData } from "../services/backendAPI";
 import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
+import { useDispatch } from "react-redux";
+import { addWordFromUser } from "../redux/words/wordsOperations";
 
 const Headers = ({ headerData, setWidths }) => {
   const [setColumn0Width, setColumn1Width, setColumn2Width, setColumn3Width] =
@@ -86,6 +87,8 @@ const DataRow = ({
   setUa,
   setEn,
 }) => {
+  const dispatch = useDispatch();
+
   const EditRemoveOptionsButton = useRef();
 
   const [visible, setVisible] = useState(false);
@@ -114,6 +117,11 @@ const DataRow = ({
       });
       setVisible(true);
     };
+
+    const handleAddToDictionary = () => {
+      alert(`handleAddToDictionary ${item._id}`);
+      dispatch(addWordFromUser({id: item._id}));
+    }
 
     return (
       <View className="flex-row bg-white">
@@ -174,7 +182,7 @@ const DataRow = ({
             <TouchableOpacity
               className="p-2"
               ref={EditRemoveOptionsButton}
-              onPress={() => alert("handleAddToDictionary")}
+              onPress={handleAddToDictionary}
             >
               <ArrowRightIcon />
             </TouchableOpacity>
@@ -191,6 +199,7 @@ const VocabTable = ({
   setShowEditWindow,
   setUa,
   setEn,
+  vocabData
 }) => {
   const [column0Width, setColumn0Width] = useState(82);
   const [column1Width, setColumn1Width] = useState(116);

@@ -15,8 +15,12 @@ import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import VocabTable from "../components/VocabTable";
 import EditWindow from "../components/EditWindow";
 import { DICTIONARY_TABLE_HEADERS } from "../assets/utils/constants";
+import { useSelector } from "react-redux";
+import { selectOwnWords } from "../redux/words/wordsSelectors";
 
 const DictionaryScreen = ({ navigation }) => {
+  const vocabData = useSelector(selectOwnWords);
+  // console.log(vocabData.length)
   const route = useRoute();
   
   const [selected, setSelected] = useState(undefined);
@@ -73,6 +77,7 @@ const DictionaryScreen = ({ navigation }) => {
           setShowEditWindow={setShowEditWindow}
           setUa={setEditWindowUa}
           setEn={setEditWindowEn}
+          vocabData={vocabData}
         />
       </View>
       <EditWindow

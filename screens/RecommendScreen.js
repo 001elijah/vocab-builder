@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useRoute } from "@react-navigation/native"
 import LogoutButton from '../components/LogoutButton';
 import SearchBar from '../components/SearchBar';
@@ -7,9 +7,18 @@ import Dropdown from '../components/Dropdown';
 import ArrowRightIcon from '../assets/icons/ArrowRightIcon';
 import VocabTable from '../components/VocabTable';
 import { RECOMMEND_TABLE_HEADERS } from '../assets/utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAllWords } from '../redux/words/wordsSelectors';
+import { getAll } from '../redux/words/wordsOperations';
 
 const RecommendScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const vocabData = useSelector(selectAllWords);
   const route = useRoute();
+
+  useEffect(() => {
+    dispatch(getAll({ page: 1, limit: 7 }));
+  }, [])
 
   const [selected, setSelected] = useState(undefined);
 
@@ -46,6 +55,7 @@ const RecommendScreen = ({ navigation }) => {
         <VocabTable
           routeName={route.name}
           headerData={RECOMMEND_TABLE_HEADERS}
+          vocabData={vocabData.results}
         />
       </View>
     </View>
