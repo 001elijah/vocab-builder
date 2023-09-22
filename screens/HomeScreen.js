@@ -10,17 +10,23 @@ import Dictionary from "./Dictionary";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCategories } from "../redux/words/wordsSelectors";
 import { getCategories } from "../redux/words/wordsOperations";
+import { selectAuthorized } from "../redux/auth/authSelectors";
 
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
+  const isAuthorized = useSelector(selectAuthorized);
   useEffect(() => {
     if (!categories) {
       dispatch(getCategories());
     }
   }, []);
+
+  useEffect(() => {
+    !isAuthorized && navigation.replace("Auth");
+  }, [isAuthorized]);
   return (
     <Tab.Navigator
       initialRouteName={"Dictionary"}

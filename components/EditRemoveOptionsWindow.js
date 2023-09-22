@@ -2,6 +2,8 @@ import { View, Text, Modal, TouchableOpacity } from "react-native";
 import React, { useState } from 'react'
 import PencilIcon from '../assets/icons/PencilIcon';
 import TrashBinIcon from '../assets/icons/TrashBinIcon';
+import { useDispatch } from "react-redux";
+import { deleteOwnWord } from "../redux/words/wordsOperations";
 
 const EditRemoveOptionsWindow = ({
   visible,
@@ -10,7 +12,12 @@ const EditRemoveOptionsWindow = ({
   setShowEditWindow,
   handleOpenModal,
   setWordsToEditWindow,
+  wordId,
 }) => {
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteOwnWord({id: wordId}));
+  }
   return (
     <>
       {visible && (
@@ -36,7 +43,7 @@ const EditRemoveOptionsWindow = ({
               </TouchableOpacity>
               <TouchableOpacity
                 className="mt-2 flex-row gap-x-2"
-                onPress={() => alert("Hello Delete")}
+                onPress={handleDelete}
               >
                 <TrashBinIcon />
                 <Text>Delete</Text>

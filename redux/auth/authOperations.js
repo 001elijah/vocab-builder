@@ -5,7 +5,6 @@ import {
   loginUserApi,
   logoutUserApi,
   currentUserApi,
-  updateUserProfileAPI,
 } from "../../services/backendAPI";
 
 export const register = createAsyncThunk(
@@ -82,8 +81,10 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     const { token } = getState().authorized.user;
     try {
-      await logoutUserApi(token);
+      // await logoutUserApi(token);
+      return null;
     } catch (error) {
+      alert(error.response.data.message);
       return rejectWithValue(error.message);
     }
   }

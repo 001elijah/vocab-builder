@@ -13,11 +13,6 @@ const authSlice = createSlice({
     authorized: false,
     error: null,
   },
-  reducers: {
-    refreshError(state) {
-      state.error = null;
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, { payload }) => {
@@ -38,6 +33,7 @@ const authSlice = createSlice({
         state.user.email = null;
         state.user.token = null;
         state.authorized = false;
+        state.error = null;
       })
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
@@ -49,7 +45,6 @@ const authSlice = createSlice({
         (action) => action.type.endsWith("/rejected"),
         (state, { payload }) => {
             state.error = payload;
-            state.user.token = null;
         }
       );
   },

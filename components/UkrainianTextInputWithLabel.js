@@ -11,7 +11,7 @@ const UkrainianTextInputWithLabel = ({ ua = "", setUa }) => {
   useEffect(() => {
     setUkrainianWord(ua);
   }, [ua]);
-  setUa(ukrainianWord);
+  setUa && setUa(ukrainianWord);
   return (
     <View>
       <View className="mt-4 flex-row items-center gap-x-2">

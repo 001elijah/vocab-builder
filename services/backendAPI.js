@@ -152,8 +152,9 @@ export const currentUserApi = async (userToken) => {
   return { ...data };
 };
 
-export const logoutUserApi = async (userToken) => {
-  await axios.post("/users/signout", userToken);
+export const logoutUserApi = async (token) => {
+  token.set(token);
+  await axios.post("/users/signout");
   token.unset();
   return null;
 };
@@ -178,9 +179,19 @@ export const getAllWords = async (queryParams) => {
   return data;
 };
 
-export const addWord = async (queryParams) => {
-  const { data } = await axios.post("/words/add", {
+export const getOwnWords = async (queryParams) => {
+  const { data } = await axios.get("/words/own", null, {
     params: { ...queryParams },
   });
+  return data;
+};
+
+export const addWord = async ({id}) => {
+  const { data } = await axios.post(`/words/add/${id}`);
+  return data;
+};
+
+export const deleteWord = async ({id}) => {
+  const { data } = await axios.delete(`/words/delete/${id}`);
   return data;
 };

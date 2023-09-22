@@ -175,6 +175,7 @@ const DataRow = ({
                 setShowEditWindow={setShowEditWindow}
                 setWordsToEditWindow={setWordsToEditWindow}
                 handleOpenModal={handleOpenModal}
+                wordId={item._id}
               />
               <EllipsisIcon />
             </TouchableOpacity>

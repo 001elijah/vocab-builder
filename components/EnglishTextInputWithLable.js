@@ -10,7 +10,7 @@ const EnglishTextInputWithLable = ({ en = "", setEn }) => {
   useEffect(() => {
     setEnglishWord(en);
   }, [en]);
-  setEn(englishWord);
+  setEn && setEn(englishWord);
   return (
     <View>
       <View className="mt-6 flex-row items-center gap-x-2">

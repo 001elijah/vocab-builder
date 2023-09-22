@@ -26,9 +26,9 @@ const AddWordScreen = ({ navigation }) => {
     const newWord = {
       en: en,
       ua: ua,
-      category: selected,
-      isIrregular: Boolean(radioSelected.value === "irregular")
+      category: selected
     };
+    if (radioSelected) newWord.isIrregular = Boolean(radioSelected.value === "irregular");
     dispatch(createNew(newWord));
     handleGoBack();
   }

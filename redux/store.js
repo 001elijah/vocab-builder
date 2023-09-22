@@ -17,6 +17,7 @@ import wordsReducer from "./words/wordsSlice";
 const authPersistConfig = {
   key: "user",
   storage: AsyncStorage,
+  whitelist: ["user"],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);

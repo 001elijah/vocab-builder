@@ -5,7 +5,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import LogoutButton from "../components/LogoutButton";
 import SearchBar from "../components/SearchBar";
@@ -15,12 +15,18 @@ import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import VocabTable from "../components/VocabTable";
 import EditWindow from "../components/EditWindow";
 import { DICTIONARY_TABLE_HEADERS } from "../assets/utils/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectOwnWords } from "../redux/words/wordsSelectors";
+import { getOwn } from "../redux/words/wordsOperations";
 
 const DictionaryScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const vocabData = useSelector(selectOwnWords);
-  // console.log(vocabData.length)
+
+  useEffect(() => {
+    dispatch(getOwn({ page: 1, limit: 7 }))
+  }, [])
+
   const route = useRoute();
   
   const [selected, setSelected] = useState(undefined);
@@ -77,7 +83,7 @@ const DictionaryScreen = ({ navigation }) => {
           setShowEditWindow={setShowEditWindow}
           setUa={setEditWindowUa}
           setEn={setEditWindowEn}
-          vocabData={vocabData}
+          vocabData={vocabData.results}
         />
       </View>
       <EditWindow

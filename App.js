@@ -3,15 +3,23 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { store, persistor } from "./redux/store";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import HomeScreen from "./screens/HomeScreen";
+import { selectAuthorized } from "./redux/auth/authSelectors";
+import { useEffect } from "react";
 
 const Stack = createStackNavigator();
 
-const Auth = () => {
+const Auth = ({navigation}) => {
+  const isAuthorized = useSelector(selectAuthorized);
+
+  useEffect(() => {
+    isAuthorized && navigation.replace("Home");
+  }, [isAuthorized]);
+
   return (
     <Stack.Navigator initialRouteName="RegistrationScreen">
       <Stack.Screen
