@@ -12,14 +12,14 @@ const SearchBar = ({ onSet, searchQuery, handleSearch }) => {
   const handleChange = () => {
     handleSearch();
   }
-  
+
   useEffect(() => {
     ref.current = handleChange;
   }, [handleChange]);
 
   const doCallbackWithDebounce = useMemo(() => {
     const callback = () => ref.current?.();
-    return _.debounce(callback, 3000);
+    return _.debounce(callback, 300);
   }, []);
 
   return (
