@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -11,9 +11,31 @@ import {
 import HandleIcon from "../assets/icons/HandleIcon";
 import UkrainianTextInputWithLabel from "./UkrainianTextInputWithLabel";
 import EnglishTextInputWithLable from "./EnglishTextInputWithLable";
+import { useDispatch } from "react-redux";
+import { editOwnWord } from "../redux/words/wordsOperations";
 
-const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
+const EditWindow = ({
+  showEditWindow,
+  setShowEditWindow,
+  wordData,
+  wordId,
+  ua,
+  en,
+}) => {
+  const dispatch = useDispatch();
+  const [ukrainianWord, setUkrainianWord] = useState("");
+  const [englishWord, setEnglishWord] = useState("");
   const handleCancel = () => {
+    setShowEditWindow(false);
+  };
+
+  const handleSave = () => {
+    const newWordData = {
+      ...wordData,
+      ua: ukrainianWord,
+      en: englishWord,
+    };
+    dispatch(editOwnWord(newWordData));
     setShowEditWindow(false);
   };
 
@@ -37,11 +59,19 @@ const EditWindow = ({ showEditWindow, setShowEditWindow, ua, en }) => {
                 <View className="mx-auto">
                   <HandleIcon />
                 </View>
-                <UkrainianTextInputWithLabel ua={ua} />
-                <EnglishTextInputWithLable en={en} />
+                <UkrainianTextInputWithLabel
+                  ua={wordData.ua}
+                  ukrainianWord={ukrainianWord}
+                  setUkrainianWord={setUkrainianWord}
+                />
+                <EnglishTextInputWithLable
+                  en={wordData.en}
+                  englishWord={englishWord}
+                  setEnglishWord={setEnglishWord}
+                />
                 <TouchableOpacity
                   className="mt-8 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
-                  onPress={() => alert("handleSave")}
+                  onPress={handleSave}
                 >
                   <Text className="font-['FixelDisplay-Bold'] text-base text-white">
                     Save

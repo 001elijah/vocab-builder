@@ -84,8 +84,7 @@ const DataRow = ({
   item,
   columnsWidth,
   setShowEditWindow,
-  setUa,
-  setEn,
+  setWordData,
 }) => {
   const dispatch = useDispatch();
 
@@ -103,8 +102,13 @@ const DataRow = ({
     const widthThird = Math.round(column3Width * 10) / 10;
 
     const setWordsToEditWindow = () => {
-      setUa(item.ua);
-      setEn(item.en);
+      setWordData({
+        _id: item._id,
+        ua: item.ua,
+        en: item.en,
+        category: item.category,
+        isIrregular: item.isIrregular,
+      });
     };
 
     const handleOpenModal = () => {
@@ -198,8 +202,7 @@ const VocabTable = ({
   routeName,
   headerData,
   setShowEditWindow,
-  setUa,
-  setEn,
+  setWordData,
   vocabData
 }) => {
   const [column0Width, setColumn0Width] = useState(82);
@@ -225,8 +228,7 @@ const VocabTable = ({
             <DataRow
               routeName={routeName}
               headerData={headerData}
-              setUa={setUa}
-              setEn={setEn}
+              setWordData={setWordData}
               item={item}
               columnsWidth={[
                 column0Width,

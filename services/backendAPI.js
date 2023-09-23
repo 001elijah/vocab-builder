@@ -73,3 +73,13 @@ export const deleteWord = async ({ id }) => {
   const { data } = await axios.delete(`/words/delete/${id}`);
   return data;
 };
+
+export const editWord = async ({ _id, en, ua, category, isIrregular }) => {
+  const { data } = await axios.patch(`/words/edit/${_id}`, {
+    en,
+    ua,
+    category,
+    isIrregular,
+  });
+  return data;
+};

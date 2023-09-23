@@ -2,8 +2,13 @@ import { View, Text, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import UkraineIcon from "../assets/icons/UkraineIcon";
 
-const UkrainianTextInputWithLabel = ({ ua = "", setUa }) => {
-  const [ukrainianWord, setUkrainianWord] = useState("");
+const UkrainianTextInputWithLabel = ({
+  ua = "",
+  setUa,
+  ukrainianWord,
+  setUkrainianWord,
+}) => {
+  // const [ukrainianWord, setUkrainianWord] = useState("");
   const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
   const toggleUkrainianInFocus = () =>
     setIsUkrainianWordInFocus(!isUkrainianWordInFocus);

@@ -78,8 +78,7 @@ const DictionaryScreen = ({ navigation }) => {
   }, [selected, radioButtonGroupData]);
 
   const [showEditWindow, setShowEditWindow] = useState(false);
-  const [editWindowUa, setEditWindowUa] = useState("");
-  const [editWindowEn, setEditWindowEn] = useState("");
+  const [wordData, setWordData] = useState({});
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -134,14 +133,12 @@ const DictionaryScreen = ({ navigation }) => {
           routeName={route.name}
           headerData={DICTIONARY_TABLE_HEADERS}
           setShowEditWindow={setShowEditWindow}
-          setUa={setEditWindowUa}
-          setEn={setEditWindowEn}
+          setWordData={setWordData}
           vocabData={vocabData.results}
         />
       </View>
       <EditWindow
-        ua={editWindowUa}
-        en={editWindowEn}
+        wordData={wordData}
         showEditWindow={showEditWindow}
         setShowEditWindow={setShowEditWindow}
       />

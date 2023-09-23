@@ -2,8 +2,13 @@ import { View, Text, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
 
-const EnglishTextInputWithLable = ({ en = "", setEn }) => {
-  const [englishWord, setEnglishWord] = useState("");
+const EnglishTextInputWithLable = ({
+  en = "",
+  setEn,
+  englishWord,
+  setEnglishWord,
+}) => {
+  // const [englishWord, setEnglishWord] = useState("");
   const [isEnglishWordInFocus, setIsEnglishWordInFocus] = useState(false);
   const toggleEnglishInFocus = () =>
     setIsEnglishWordInFocus(!isEnglishWordInFocus);

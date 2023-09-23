@@ -3,6 +3,7 @@ import {
   addWord,
   createWord,
   deleteWord,
+  editWord,
   getAllWords,
   getOwnWords,
   getWordsCategories,
@@ -97,6 +98,21 @@ export const deleteOwnWord = createAsyncThunk(
     try {
       const response = await deleteWord(queryParams);
       console.log("words/deleteOwnWord =>", response);
+      return response;
+    } catch (error) {
+      alert(error.response.data.message);
+      return rejectWithValue(error?.response?.data?.message ?? error.message);
+    }
+  }
+);
+
+export const editOwnWord = createAsyncThunk(
+  "words/editOwnWord",
+  async (newWordData, { rejectWithValue }) => {
+    try {
+      const response = await editWord(newWordData);
+      console.log("words/editOwnWord =>", response);
+      alert("Edit success!");
       return response;
     } catch (error) {
       alert(error.response.data.message);

@@ -3,6 +3,7 @@ import {
   addWordFromUser,
   createNew,
   deleteOwnWord,
+  editOwnWord,
   getAll,
   getCategories,
   getOwn,
@@ -56,13 +57,21 @@ const wordsSlice = createSlice({
         state.own.perPage = payload.perPage;
       })
       .addCase(addWordFromUser.fulfilled, (state, { payload }) => {
-        console.log("before", state.own.results.length);
         state.own.results.push(payload);
-        console.log("after", state.own.results.length);
       })
       .addCase(deleteOwnWord.fulfilled, (state, { payload }) => {
         state.own.results = state.own.results.filter(
           (word) => word._id !== payload.id
+        );
+      })
+      .addCase(editOwnWord.fulfilled, (state, { payload }) => {
+        state.own.results = state.own.results.map(
+          (word) => {
+            if (word._id === payload._id) {
+              return {...word, ...payload}
+            }
+            return word;
+          }
         );
       })
       .addCase(logout.fulfilled, (state) => {
