@@ -39,7 +39,6 @@ const DictionaryScreen = ({ navigation }) => {
   );
 
   const handleSearch = () => {
-    // alert("handleSearch");
     const params = {
       keyword: searchQuery.trim(),
       page: 1,
@@ -76,7 +75,7 @@ const DictionaryScreen = ({ navigation }) => {
 
   useEffect(() => {
     handleSearch();
-  }, [selected, searchQuery, radioButtonGroupData]);
+  }, [selected, radioButtonGroupData]);
 
   const [showEditWindow, setShowEditWindow] = useState(false);
   const [editWindowUa, setEditWindowUa] = useState("");
