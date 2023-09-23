@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getCurrentUserInfo,
-  login,
-  logout,
-  register,
-} from "./authOperations";
+import { getCurrentUserInfo, login, logout, register } from "./authOperations";
 
 const authSlice = createSlice({
   name: "authorized",
@@ -44,7 +39,7 @@ const authSlice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, { payload }) => {
-            state.error = payload;
+          state.error = payload;
         }
       );
   },

@@ -14,10 +14,11 @@ import { selectAuthorized } from "../redux/auth/authSelectors";
 
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const isAuthorized = useSelector(selectAuthorized);
+
   useEffect(() => {
     if (!categories) {
       dispatch(getCategories());

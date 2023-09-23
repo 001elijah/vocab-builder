@@ -1,11 +1,11 @@
-import { View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import SearchIcon from '../assets/icons/SearchIcon';
+import { View, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import SearchIcon from "../assets/icons/SearchIcon";
 
-const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+const SearchBar = ({ onSet, searchQuery, handleSearch }) => {
   const [isSearchBarInFocus, setIsSearchBarInFocus] = useState(false);
   const toggleSearchBarFocus = () => setIsSearchBarInFocus(!isSearchBarInFocus);
+
   return (
     <View className="mt-4">
       <TextInput
@@ -13,7 +13,7 @@ const SearchBar = () => {
           isSearchBarInFocus ? "border-green" : "border-light-grey"
         } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
         value={searchQuery}
-        onChangeText={setSearchQuery}
+        onChangeText={onSet}
         onFocus={toggleSearchBarFocus}
         onBlur={toggleSearchBarFocus}
         placeholder="Find the word"
@@ -23,12 +23,12 @@ const SearchBar = () => {
       <TouchableOpacity
         className="absolute justify-center h-12 top-1 right-6"
         activeOpacity={0.5}
-        onPress={() => alert("handleSearch")}
+        onPress={handleSearch}
       >
         <SearchIcon />
       </TouchableOpacity>
     </View>
   );
-}
+};
 
-export default SearchBar
+export default SearchBar;

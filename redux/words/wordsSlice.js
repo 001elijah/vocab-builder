@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addWordFromUser, createNew, deleteOwnWord, getAll, getCategories, getOwn } from "./wordsOperations";
+import {
+  addWordFromUser,
+  createNew,
+  deleteOwnWord,
+  getAll,
+  getCategories,
+  getOwn,
+  getOwnFiltered,
+} from "./wordsOperations";
 import { logout } from "../auth/authOperations";
 
 const wordsSlice = createSlice({
@@ -27,7 +35,7 @@ const wordsSlice = createSlice({
         state.categories = payload;
       })
       .addCase(createNew.fulfilled, (state, { payload }) => {
-        state.own.push(payload);
+        state.own.results.push(payload);
       })
       .addCase(getAll.fulfilled, (state, { payload }) => {
         state.all.results.push(...payload.results);
@@ -41,8 +49,16 @@ const wordsSlice = createSlice({
         state.own.page = payload.page;
         state.own.perPage = payload.perPage;
       })
+      .addCase(getOwnFiltered.fulfilled, (state, { payload }) => {
+        state.own.results = payload.results;
+        state.own.totalPages = payload.totalPages;
+        state.own.page = payload.page;
+        state.own.perPage = payload.perPage;
+      })
       .addCase(addWordFromUser.fulfilled, (state, { payload }) => {
+        console.log("before", state.own.results.length);
         state.own.results.push(payload);
+        console.log("after", state.own.results.length);
       })
       .addCase(deleteOwnWord.fulfilled, (state, { payload }) => {
         state.own.results = state.own.results.filter(

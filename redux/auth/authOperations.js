@@ -3,7 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   registerUserApi,
   loginUserApi,
-  logoutUserApi,
   currentUserApi,
 } from "../../services/backendAPI";
 
@@ -55,6 +54,7 @@ export const getCurrentUserInfo = createAsyncThunk(
     const { token } = getState().authorized.user;
     try {
       const userData = await currentUserApi(token);
+      console.log("authorized/getCurrentUserInfo =>", userData);
       return {
         user: {
           uid: userData._id,

@@ -2,34 +2,33 @@ import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
 import React, { useRef, useState } from "react";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
 import RadioButtonGroup from "./RadioButtonGroup";
-import {
-  RADIO_BUTTON_GROUP_DATA,
-} from "../assets/utils/constants";
+
 import { selectCategories } from "../redux/words/wordsSelectors";
 import { useSelector } from "react-redux";
 
-const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
+const Dropdown = ({
+  label,
+  onSelect,
+  selected,
+  onRadioSelect,
+  radioButtonGroupData,
+  setRadioButtonGroupData,
+}) => {
   const categories = useSelector(selectCategories);
-  
+
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
   const [dropdownTop, setDropdownTop] = useState(0);
 
-  const [radioButtonGroupData, setRadioButtonGroupData] = useState(
-    RADIO_BUTTON_GROUP_DATA
-  );
-
   const onRadioBtnClick = (item) => {
-    let updatedState = radioButtonGroupData.map((radioButtonItem) =>
-    {
+    let updatedState = radioButtonGroupData.map((radioButtonItem) => {
       if (radioButtonItem.id === item.id) {
         onRadioSelect && onRadioSelect({ ...radioButtonItem, selected: true });
         return { ...radioButtonItem, selected: true };
       } else {
         return { ...radioButtonItem, selected: false };
       }
-    }
-    );
+    });
     setRadioButtonGroupData(updatedState);
   };
 
@@ -99,7 +98,8 @@ const Dropdown = ({ label, onSelect, selected, onRadioSelect }) => {
         {renderDropdown()}
         <View className="flex-1 flex-row items-center justify-between">
           <Text className="flex-1 font-['FixelDisplay-Regular'] text-base text-black">
-            {(selected && selected.charAt(0).toUpperCase() + selected.slice(1)) ||
+            {(selected &&
+              selected.charAt(0).toUpperCase() + selected.slice(1)) ||
               label}
           </Text>
           <ChevronDownIcon />

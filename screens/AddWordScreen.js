@@ -14,11 +14,15 @@ import UkrainianTextInputWithLabel from "../components/UkrainianTextInputWithLab
 import EnglishTextInputWithLable from "../components/EnglishTextInputWithLable";
 import { useDispatch } from "react-redux";
 import { createNew } from "../redux/words/wordsOperations";
+import { RADIO_BUTTON_GROUP_DATA } from "../assets/utils/constants";
 
 const AddWordScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(undefined);
   const [radioSelected, setRadioSelected] = useState(undefined);
+  const [radioButtonGroupData, setRadioButtonGroupData] = useState(
+    RADIO_BUTTON_GROUP_DATA
+  );
   const [ua, setUa] = useState("");
   const [en, setEn] = useState("");
 
@@ -26,12 +30,13 @@ const AddWordScreen = ({ navigation }) => {
     const newWord = {
       en: en,
       ua: ua,
-      category: selected
+      category: selected,
     };
-    if (radioSelected) newWord.isIrregular = Boolean(radioSelected.value === "irregular");
+    if (radioSelected)
+      newWord.isIrregular = Boolean(radioSelected.value === "irregular");
     dispatch(createNew(newWord));
     handleGoBack();
-  }
+  };
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -58,6 +63,8 @@ const AddWordScreen = ({ navigation }) => {
             label={"Categories"}
             onSelect={setSelected}
             selected={selected}
+            radioButtonGroupData={radioButtonGroupData}
+            setRadioButtonGroupData={setRadioButtonGroupData}
             onRadioSelect={setRadioSelected}
           />
           {radioSelected?.value === "irregular" && (

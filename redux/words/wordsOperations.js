@@ -1,5 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addWord, createWord, deleteWord, getAllWords, getOwnWords, getWordsCategories } from "../../services/backendAPI";
+import {
+  addWord,
+  createWord,
+  deleteWord,
+  getAllWords,
+  getOwnWords,
+  getWordsCategories,
+} from "../../services/backendAPI";
 
 export const getCategories = createAsyncThunk(
   "words/getCategories",
@@ -28,7 +35,6 @@ export const createNew = createAsyncThunk(
   }
 );
 
-
 export const getAll = createAsyncThunk(
   "words/getAll",
   async (queryParams, { rejectWithValue }) => {
@@ -41,14 +47,28 @@ export const getAll = createAsyncThunk(
       return rejectWithValue(error?.response?.data?.message ?? error.message);
     }
   }
-)
+);
 
 export const getOwn = createAsyncThunk(
   "words/getOwn",
   async (queryParams, { rejectWithValue }) => {
     try {
       const response = await getOwnWords(queryParams);
-      // console.log("words/getAll =>", response);
+      // console.log("words/getOwn =>", response);
+      return response;
+    } catch (error) {
+      alert(error.response.data.message);
+      return rejectWithValue(error?.response?.data?.message ?? error.message);
+    }
+  }
+);
+
+export const getOwnFiltered = createAsyncThunk(
+  "words/getOwnFiltered",
+  async (queryParams, { rejectWithValue }) => {
+    try {
+      const response = await getOwnWords(queryParams);
+      // console.log("words/getOwnFiltered =>", response);
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -69,7 +89,7 @@ export const addWordFromUser = createAsyncThunk(
       return rejectWithValue(error?.response?.data?.message ?? error.message);
     }
   }
-)
+);
 
 export const deleteOwnWord = createAsyncThunk(
   "words/deleteOwnWord",
