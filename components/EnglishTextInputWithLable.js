@@ -4,18 +4,16 @@ import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
 
 const EnglishTextInputWithLable = ({
   en = "",
-  setEn,
   englishWord,
   setEnglishWord,
 }) => {
-  // const [englishWord, setEnglishWord] = useState("");
   const [isEnglishWordInFocus, setIsEnglishWordInFocus] = useState(false);
   const toggleEnglishInFocus = () =>
     setIsEnglishWordInFocus(!isEnglishWordInFocus);
   useEffect(() => {
     setEnglishWord(en);
   }, [en]);
-  setEn && setEn(englishWord);
+
   return (
     <View>
       <View className="mt-6 flex-row items-center gap-x-2">

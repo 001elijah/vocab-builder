@@ -1,15 +1,21 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { useRoute } from "@react-navigation/native"
-import LogoutButton from '../components/LogoutButton';
-import SearchBar from '../components/SearchBar';
-import Dropdown from '../components/Dropdown';
-import ArrowRightIcon from '../assets/icons/ArrowRightIcon';
-import VocabTable from '../components/VocabTable';
-import { RADIO_BUTTON_GROUP_DATA, RECOMMEND_TABLE_HEADERS } from '../assets/utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAllWords, selectStatistics } from '../redux/words/wordsSelectors';
-import { getAll, getAllFiltered } from '../redux/words/wordsOperations';
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useRoute } from "@react-navigation/native";
+import LogoutButton from "../components/LogoutButton";
+import SearchBar from "../components/SearchBar";
+import Dropdown from "../components/Dropdown";
+import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
+import VocabTable from "../components/VocabTable";
+import {
+  RADIO_BUTTON_GROUP_DATA,
+  RECOMMEND_TABLE_HEADERS,
+} from "../assets/utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectAllWords,
+  selectStatistics,
+} from "../redux/words/wordsSelectors";
+import { getAllFiltered } from "../redux/words/wordsOperations";
 
 const RecommendScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -17,15 +23,22 @@ const RecommendScreen = ({ navigation }) => {
   const statistics = useSelector(selectStatistics);
   const route = useRoute();
 
-  useEffect(() => {
-    dispatch(getAll({ page: 1, limit: 7 }));
-  }, [])
-
   const [selected, setSelected] = useState(undefined);
   const [searchQuery, setSearchQuery] = useState("");
   const [radioButtonGroupData, setRadioButtonGroupData] = useState(
     RADIO_BUTTON_GROUP_DATA
   );
+
+  useEffect(() => {
+    handleSearch();
+  }, [selected, radioButtonGroupData]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <LogoutButton />,
+      headerLeft: () => null,
+    });
+  });
 
   const handleSearch = () => {
     const params = {
@@ -62,16 +75,6 @@ const RecommendScreen = ({ navigation }) => {
     dispatch(getAllFiltered(params));
   };
 
-  useEffect(() => {
-    handleSearch();
-  }, [selected, radioButtonGroupData]);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <LogoutButton />,
-      headerLeft: () => null,
-    });
-  });
   return (
     <View className="px-4 justify-start h-full bg-light">
       <SearchBar
@@ -111,6 +114,6 @@ const RecommendScreen = ({ navigation }) => {
       </View>
     </View>
   );
-}
+};
 
-export default RecommendScreen
+export default RecommendScreen;

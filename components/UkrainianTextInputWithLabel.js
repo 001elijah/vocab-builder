@@ -4,19 +4,17 @@ import UkraineIcon from "../assets/icons/UkraineIcon";
 
 const UkrainianTextInputWithLabel = ({
   ua = "",
-  setUa,
   ukrainianWord,
   setUkrainianWord,
 }) => {
-  // const [ukrainianWord, setUkrainianWord] = useState("");
   const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
   const toggleUkrainianInFocus = () =>
     setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
-
+  
   useEffect(() => {
     setUkrainianWord(ua);
   }, [ua]);
-  setUa && setUa(ukrainianWord);
+
   return (
     <View>
       <View className="mt-4 flex-row items-center gap-x-2">

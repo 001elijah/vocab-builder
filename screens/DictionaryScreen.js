@@ -19,17 +19,16 @@ import {
   RADIO_BUTTON_GROUP_DATA,
 } from "../assets/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { selectOwnWords, selectStatistics } from "../redux/words/wordsSelectors";
-import { getOwn, getOwnFiltered } from "../redux/words/wordsOperations";
+import {
+  selectOwnWords,
+  selectStatistics,
+} from "../redux/words/wordsSelectors";
+import { getOwnFiltered } from "../redux/words/wordsOperations";
 
 const DictionaryScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const vocabData = useSelector(selectOwnWords);
   const statistics = useSelector(selectStatistics);
-
-  useEffect(() => {
-    dispatch(getOwn({ page: 1, limit: 100 }));
-  }, []);
 
   const route = useRoute();
 
@@ -38,6 +37,20 @@ const DictionaryScreen = ({ navigation }) => {
   const [radioButtonGroupData, setRadioButtonGroupData] = useState(
     RADIO_BUTTON_GROUP_DATA
   );
+
+  useEffect(() => {
+    handleSearch();
+  }, [selected, radioButtonGroupData]);
+
+  const [showEditWindow, setShowEditWindow] = useState(false);
+  const [wordData, setWordData] = useState({});
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <LogoutButton />,
+      headerLeft: () => null,
+    });
+  });
 
   const handleSearch = () => {
     const params = {
@@ -74,20 +87,6 @@ const DictionaryScreen = ({ navigation }) => {
     dispatch(getOwnFiltered(params));
   };
 
-  useEffect(() => {
-    handleSearch();
-  }, [selected, radioButtonGroupData]);
-
-  const [showEditWindow, setShowEditWindow] = useState(false);
-  const [wordData, setWordData] = useState({});
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <LogoutButton />,
-      headerLeft: () => null,
-    });
-  });
-
   return (
     <View className="px-4 justify-start h-full bg-light">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -109,7 +108,10 @@ const DictionaryScreen = ({ navigation }) => {
             <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
               To study:
             </Text>
-            <Text className="text-black text-xl"> {statistics?.totalCount}</Text>
+            <Text className="text-black text-xl">
+              {" "}
+              {statistics?.totalCount}
+            </Text>
           </View>
           <View className="mt-2 flex-row items-center">
             <Text className="text-black text-xl">Add word</Text>

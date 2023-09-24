@@ -25,6 +25,8 @@ const AddWordScreen = ({ navigation }) => {
   );
   const [ua, setUa] = useState("");
   const [en, setEn] = useState("");
+  const [ukrainianWord, setUkrainianWord] = useState("");
+  const [englishWord, setEnglishWord] = useState("");
 
   const handleAddWord = () => {
     const newWord = {
@@ -72,8 +74,14 @@ const AddWordScreen = ({ navigation }) => {
               Such data must be entered in the format I form-II form-III form.
             </Text>
           )}
-          <UkrainianTextInputWithLabel setUa={setUa} />
-          <EnglishTextInputWithLable setEn={setEn} />
+          <UkrainianTextInputWithLabel
+            ukrainianWord={ukrainianWord}
+            setUkrainianWord={setUkrainianWord}
+          />
+          <EnglishTextInputWithLable
+            englishWord={englishWord}
+            setEnglishWord={setEnglishWord}
+          />
           <TouchableOpacity
             className="mt-6 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
             onPress={handleAddWord}

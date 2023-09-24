@@ -18,9 +18,6 @@ const EditWindow = ({
   showEditWindow,
   setShowEditWindow,
   wordData,
-  wordId,
-  ua,
-  en,
 }) => {
   const dispatch = useDispatch();
   const [ukrainianWord, setUkrainianWord] = useState("");
