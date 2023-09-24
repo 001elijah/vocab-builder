@@ -9,25 +9,36 @@ import {
   Image,
   FlatList,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import LogoutButton from "../components/LogoutButton";
 import TrainingProgressCircle from "../components/TrainingProgressCircle";
 import UkraineIcon from "../assets/icons/UkraineIcon";
 import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTasks } from "../redux/words/wordsSelectors";
+import { getUserTasks } from "../redux/words/wordsOperations";
 
 const TrainingScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const tasks = useSelector(selectTasks);
+
   const [uaTranslation, setUaTranslation] = useState("");
   const [isUaInFocus, setIsUaInFocus] = useState(false);
   const [enTranslation, setEnTranslation] = useState("");
   const [isEnInFocus, setIsEnInFocus] = useState(false);
 
-  const [noWordsToLearn, setNoWordsToLearn] = useState(false);
-
-  const [isDone, setIsDone] = useState(true);
+  const [isDone, setIsDone] = useState(false);
 
   const toggleUaFocus = () => setIsUaInFocus(!isUaInFocus);
   const toggleEnFocus = () => setIsEnInFocus(!isEnInFocus);
+
+  useEffect(() => {
+    if (!tasks) {
+      dispatch(getUserTasks())
+    }
+  }, [])
+  
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,7 +51,7 @@ const TrainingScreen = ({ navigation }) => {
     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-80}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className="px-4 justify-start h-full bg-light">
-          {noWordsToLearn ? (
+          {tasks?.length === 0 ? (
             <>
               <Image
                 className="w-[144px] h-[166px] mt-[58px] mx-auto"
@@ -56,7 +67,9 @@ const TrainingScreen = ({ navigation }) => {
               </Text>
               <TouchableOpacity
                 className="mt-16 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
-                onPress={() => alert("handleAddWord")}
+                onPress={() =>
+                  navigation.navigate("Dictionary", { screen: "AddWordScreen" })
+                }
               >
                 <Text className="font-['FixelDisplay-Bold'] text-base text-white">
                   Add word
@@ -64,7 +77,7 @@ const TrainingScreen = ({ navigation }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 className="mx-auto bg-transparent mt-2"
-                onPress={() => alert("handleCancel")}
+                onPress={() => navigation.goBack()}
               >
                 <Text className="font-['FixelDisplay-Bold'] text-grey text-base">
                   Cancel
@@ -129,7 +142,7 @@ const TrainingScreen = ({ navigation }) => {
             </>
           ) : (
             <>
-              <TrainingProgressCircle progress={18} total={20} />
+              <TrainingProgressCircle progress={13} total={tasks?.length} />
               <View>
                 <TextInput
                   className={`w-full h-[195px] mt-2 p-6 border-b border-light-grey rounded-t-lg bg-white font-['FixelDisplay-Regular'] text-base text-black`}

@@ -34,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
   }, [isAuthorized]);
   return (
     <Tab.Navigator
-      initialRouteName={"Dictionary"}
+      initialRouteName={"Training"}
       screenOptions={{
         tabBarActiveTintColor: "rgba(252, 252, 252, 1)",
         tabBarInactiveTintColor: "rgba(252, 252, 252, 0.5)",

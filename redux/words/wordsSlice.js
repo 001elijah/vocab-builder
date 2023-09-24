@@ -10,6 +10,7 @@ import {
   getOwn,
   getOwnFiltered,
   getUserStatistics,
+  getUserTasks,
 } from "./wordsOperations";
 import { logout } from "../auth/authOperations";
 
@@ -39,6 +40,9 @@ const wordsSlice = createSlice({
       })
       .addCase(getUserStatistics.fulfilled, (state, { payload }) => {
         state.statistics = payload;
+      })
+      .addCase(getUserTasks.fulfilled, (state, { payload }) => {
+        state.tasks = payload.tasks;
       })
       .addCase(createNew.fulfilled, (state, { payload }) => {
         state.own.results.push(payload);

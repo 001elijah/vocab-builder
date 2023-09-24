@@ -88,3 +88,8 @@ export const getStatistics = async () => {
   const { data } = await axios.get("/words/statistics");
   return data;
 };
+
+export const getTasks = async () => {
+  const { data } = await axios.get("/words/tasks");
+  return data;
+}
