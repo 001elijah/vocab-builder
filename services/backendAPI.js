@@ -83,3 +83,8 @@ export const editWord = async ({ _id, en, ua, category, isIrregular }) => {
   });
   return data;
 };
+
+export const getStatistics = async () => {
+  const { data } = await axios.get("/words/statistics");
+  return data;
+};

@@ -8,8 +8,8 @@ import StarIcon from "../assets/icons/StarIcon";
 import EditIcon from "../assets/icons/EditIcon";
 import Dictionary from "./Dictionary";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCategories } from "../redux/words/wordsSelectors";
-import { getCategories } from "../redux/words/wordsOperations";
+import { selectCategories, selectStatistics } from "../redux/words/wordsSelectors";
+import { getCategories, getUserStatistics } from "../redux/words/wordsOperations";
 import { selectAuthorized } from "../redux/auth/authSelectors";
 
 const Tab = createBottomTabNavigator();
@@ -17,11 +17,15 @@ const Tab = createBottomTabNavigator();
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
+  const statistics = useSelector(selectStatistics)
   const isAuthorized = useSelector(selectAuthorized);
 
   useEffect(() => {
     if (!categories) {
       dispatch(getCategories());
+    }
+    if (!statistics) {
+      dispatch(getUserStatistics());
     }
   }, []);
 

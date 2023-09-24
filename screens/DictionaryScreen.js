@@ -19,12 +19,13 @@ import {
   RADIO_BUTTON_GROUP_DATA,
 } from "../assets/utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { selectOwnWords } from "../redux/words/wordsSelectors";
+import { selectOwnWords, selectStatistics } from "../redux/words/wordsSelectors";
 import { getOwn, getOwnFiltered } from "../redux/words/wordsOperations";
 
 const DictionaryScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const vocabData = useSelector(selectOwnWords);
+  const statistics = useSelector(selectStatistics);
 
   useEffect(() => {
     dispatch(getOwn({ page: 1, limit: 100 }));
@@ -108,7 +109,7 @@ const DictionaryScreen = ({ navigation }) => {
             <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
               To study:
             </Text>
-            <Text className="text-black text-xl"> 20</Text>
+            <Text className="text-black text-xl"> {statistics.totalCount}</Text>
           </View>
           <View className="mt-2 flex-row items-center">
             <Text className="text-black text-xl">Add word</Text>

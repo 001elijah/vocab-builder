@@ -6,6 +6,7 @@ import {
   editWord,
   getAllWords,
   getOwnWords,
+  getStatistics,
   getWordsCategories,
 } from "../../services/backendAPI";
 
@@ -113,6 +114,20 @@ export const editOwnWord = createAsyncThunk(
       const response = await editWord(newWordData);
       console.log("words/editOwnWord =>", response);
       alert("Edit success!");
+      return response;
+    } catch (error) {
+      alert(error.response.data.message);
+      return rejectWithValue(error?.response?.data?.message ?? error.message);
+    }
+  }
+);
+
+export const getUserStatistics = createAsyncThunk(
+  "words/getUserStatistics",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getStatistics();
+      console.log("words/getUserStatistics =>", response);
       return response;
     } catch (error) {
       alert(error.response.data.message);

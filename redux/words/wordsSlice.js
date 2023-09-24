@@ -8,6 +8,7 @@ import {
   getCategories,
   getOwn,
   getOwnFiltered,
+  getUserStatistics,
 } from "./wordsOperations";
 import { logout } from "../auth/authOperations";
 
@@ -34,6 +35,9 @@ const wordsSlice = createSlice({
     builder
       .addCase(getCategories.fulfilled, (state, { payload }) => {
         state.categories = payload;
+      })
+      .addCase(getUserStatistics.fulfilled, (state, { payload }) => {
+        state.statistics = payload;
       })
       .addCase(createNew.fulfilled, (state, { payload }) => {
         state.own.results.push(payload);
@@ -65,14 +69,12 @@ const wordsSlice = createSlice({
         );
       })
       .addCase(editOwnWord.fulfilled, (state, { payload }) => {
-        state.own.results = state.own.results.map(
-          (word) => {
-            if (word._id === payload._id) {
-              return {...word, ...payload}
-            }
-            return word;
+        state.own.results = state.own.results.map((word) => {
+          if (word._id === payload._id) {
+            return { ...word, ...payload };
           }
-        );
+          return word;
+        });
       })
       .addCase(logout.fulfilled, (state) => {
         state.categories = null;
