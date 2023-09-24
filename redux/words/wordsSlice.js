@@ -5,6 +5,7 @@ import {
   deleteOwnWord,
   editOwnWord,
   getAll,
+  getAllFiltered,
   getCategories,
   getOwn,
   getOwnFiltered,
@@ -59,6 +60,12 @@ const wordsSlice = createSlice({
         state.own.totalPages = payload.totalPages;
         state.own.page = payload.page;
         state.own.perPage = payload.perPage;
+      })
+      .addCase(getAllFiltered.fulfilled, (state, { payload }) => {
+        state.all.results = payload.results;
+        state.all.totalPages = payload.totalPages;
+        state.all.page = payload.page;
+        state.all.perPage = payload.perPage;
       })
       .addCase(addWordFromUser.fulfilled, (state, { payload }) => {
         state.own.results.push(payload);

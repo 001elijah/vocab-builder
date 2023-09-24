@@ -109,7 +109,7 @@ const DictionaryScreen = ({ navigation }) => {
             <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
               To study:
             </Text>
-            <Text className="text-black text-xl"> {statistics.totalCount}</Text>
+            <Text className="text-black text-xl"> {statistics?.totalCount}</Text>
           </View>
           <View className="mt-2 flex-row items-center">
             <Text className="text-black text-xl">Add word</Text>

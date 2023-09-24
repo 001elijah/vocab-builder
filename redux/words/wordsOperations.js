@@ -79,6 +79,20 @@ export const getOwnFiltered = createAsyncThunk(
   }
 );
 
+export const getAllFiltered = createAsyncThunk(
+  "words/getAllFiltered",
+  async (queryParams, { rejectWithValue }) => {
+    try {
+      const response = await getAllWords(queryParams);
+      console.log("words/getAllFiltered =>", response);
+      return response;
+    } catch (error) {
+      alert(error.response.data.message);
+      return rejectWithValue(error?.response?.data?.message ?? error.message);
+    }
+  }
+);
+
 export const addWordFromUser = createAsyncThunk(
   "words/addWordFromUser",
   async (queryParams, { rejectWithValue }) => {
