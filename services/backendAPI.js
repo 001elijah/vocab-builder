@@ -93,3 +93,8 @@ export const getTasks = async () => {
   const { data } = await axios.get("/words/tasks");
   return data;
 }
+
+export const postAnswers = async (answersArray) => {
+  const { data } = await axios.post("/words/answers", answersArray);
+  return data;
+};

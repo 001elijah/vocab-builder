@@ -50,7 +50,7 @@ export const login = createAsyncThunk(
 
 export const getCurrentUserInfo = createAsyncThunk(
   "authorized/getCurrentUserInfo",
-  async (_, { getState, rejectWithValue }) => {
+  async (_, { getState, rejectWithValue, dispatch }) => {
     const { token } = getState().authorized.user;
     try {
       const userData = await currentUserApi(token);
@@ -65,6 +65,9 @@ export const getCurrentUserInfo = createAsyncThunk(
       };
     } catch (error) {
       alert(error.response.data.message);
+      if (error.response.data.message = "Unauthorized") {
+        return dispatch(logout())
+      }
       return rejectWithValue(error.message);
     }
   },

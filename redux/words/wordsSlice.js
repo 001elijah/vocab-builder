@@ -11,6 +11,7 @@ import {
   getOwnFiltered,
   getUserStatistics,
   getUserTasks,
+  postUserAnswers,
 } from "./wordsOperations";
 import { logout } from "../auth/authOperations";
 
@@ -32,6 +33,7 @@ const wordsSlice = createSlice({
     },
     statistics: null,
     tasks: null,
+    trainingResults: []
   },
   extraReducers: (builder) => {
     builder
@@ -87,6 +89,9 @@ const wordsSlice = createSlice({
           return word;
         });
       })
+      .addCase(postUserAnswers.fulfilled, (state, { payload }) => {
+        state.trainingResults = payload;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.categories = null;
         state.all.results = [];
@@ -99,6 +104,7 @@ const wordsSlice = createSlice({
         state.own.perPage = null;
         state.statistics = null;
         state.tasks = null;
+        state.trainingResults = [];
       });
   },
 });

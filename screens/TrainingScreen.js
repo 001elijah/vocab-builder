@@ -16,16 +16,28 @@ import UkraineIcon from "../assets/icons/UkraineIcon";
 import ArrowRightIcon from "../assets/icons/ArrowRightIcon";
 import UnitedKingdomIcon from "../assets/icons/UnitedKingdomIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTasks } from "../redux/words/wordsSelectors";
-import { getUserTasks } from "../redux/words/wordsOperations";
+import {
+  selectTasks,
+  selectTrainingResults,
+} from "../redux/words/wordsSelectors";
+import { getUserTasks, postUserAnswers } from "../redux/words/wordsOperations";
+import GoBackButton from "../components/GoBackButton";
 
 const TrainingScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const tasks = useSelector(selectTasks);
+  const results = useSelector(selectTrainingResults);
+  const [answers, setAnswers] = useState([]);
 
   const [uaTranslation, setUaTranslation] = useState("");
+  const [isUaEditable, setIsUaEditable] = useState(true);
   const [isUaInFocus, setIsUaInFocus] = useState(false);
+  const [taskNumber, setTaskNumber] = useState(0);
+
+  const [isLastTask, setIsLastTask] = useState(false);
+
   const [enTranslation, setEnTranslation] = useState("");
+  const [isEnEditable, setIsEnEditable] = useState(true);
   const [isEnInFocus, setIsEnInFocus] = useState(false);
 
   const [isDone, setIsDone] = useState(false);
@@ -35,17 +47,102 @@ const TrainingScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (!tasks) {
-      dispatch(getUserTasks())
+      dispatch(getUserTasks());
     }
-  }, [])
-  
+  }, []);
+
+  useEffect(() => {
+    if (tasks) {
+      setIsUaEditable(true);
+      setIsEnEditable(true);
+      if (tasks[taskNumber].en) {
+        setEnTranslation(tasks[taskNumber].en);
+        setIsEnEditable(false);
+      } else {
+        setEnTranslation("");
+      }
+      if (tasks[taskNumber].ua) {
+        setUaTranslation(tasks[taskNumber].ua);
+        setIsUaEditable(false);
+      } else {
+        setUaTranslation("");
+      }
+    }
+    if (taskNumber + 1 === tasks?.length) setIsLastTask(true);
+  }, [tasks, taskNumber]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <LogoutButton />,
-      headerLeft: () => null,
+      headerLeft: () => (
+        <GoBackButton
+          goBackFunction={() => {
+            navigation.goBack();
+            setIsDone(false);
+          }}
+        />
+      ),
     });
   });
+
+  const handleNext = () => {
+    const answer = {
+      _id: tasks[taskNumber]._id,
+      task: tasks[taskNumber].task,
+    };
+    if (enTranslation) {
+      answer.en = enTranslation;
+    } else {
+      answer.en = null;
+    }
+    if (uaTranslation) {
+      answer.ua = uaTranslation;
+    } else {
+      answer.ua = null;
+    }
+    setTaskNumber(taskNumber + 1);
+    setAnswers((answers) => [...answers, answer]);
+  };
+
+  const handleSave = () => {
+    if (isLastTask) {
+      const answer = {
+        _id: tasks[taskNumber]._id,
+        task: tasks[taskNumber].task,
+      };
+      if (enTranslation) {
+        answer.en = enTranslation;
+      } else {
+        answer.en = null;
+      }
+      if (uaTranslation) {
+        answer.ua = uaTranslation;
+      } else {
+        answer.ua = null;
+      }
+      setTaskNumber(0);
+      setIsLastTask(false);
+      dispatch(postUserAnswers([...answers, answer]));
+    } else {
+      const answer = {
+        _id: tasks[taskNumber]._id,
+        task: tasks[taskNumber].task,
+      };
+      if (enTranslation) {
+        answer.en = enTranslation;
+      } else {
+        answer.en = null;
+      }
+      if (uaTranslation) {
+        answer.ua = uaTranslation;
+      } else {
+        answer.ua = null;
+      }
+      dispatch(postUserAnswers([...answers, answer]));
+    }
+    setAnswers([]);
+    setIsDone(true);
+  };
 
   return (
     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-80}>
@@ -93,28 +190,23 @@ const TrainingScreen = ({ navigation }) => {
               <Text className="mt-8 mx-auto font-['FixelDisplay-SemiBold'] text-2xl text-black">
                 Well done
               </Text>
-              <View className="mt-8 ml-4 flex-row">
+              <View className="mt-8 ml-4 flex-row items-center">
                 <View>
                   <Text className="font-['FixelDisplay-Regular'] text-sm text-grey">
                     Сorrect answers:
                   </Text>
                   <FlatList
                     className="mt-2"
-                    data={[
-                      { key: "Phone" },
-                      { key: "During" },
-                      { key: "Together" },
-                      { key: "Hand" },
-                      { key: "Care" },
-                      { key: "Bring" },
-                      { key: "Calm down" },
-                      { key: "Work out" },
-                      { key: "Shop" },
-                      { key: "Pay for" },
-                    ]}
+                    data={results.filter((result) => result.isDone === true)}
                     renderItem={({ item }) => (
                       <Text className="mt-1 font-['FixelDisplay-Medium'] text-base text-black">
-                        {item.key}
+                        {item.task === "en"
+                          ? item.en
+                            ? item.en.charAt(0).toUpperCase() + item.en.slice(1)
+                            : item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
+                          : item.ua
+                          ? item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
+                          : item.en.charAt(0).toUpperCase() + item.en.slice(1)}
                       </Text>
                     )}
                   />
@@ -125,15 +217,16 @@ const TrainingScreen = ({ navigation }) => {
                   </Text>
                   <FlatList
                     className="mt-2"
-                    data={[
-                      { key: "Look up to" },
-                      { key: "Hold something back" },
-                      { key: "Go ahead" },
-                      { key: "Fall out" },
-                    ]}
+                    data={results.filter((result) => result.isDone === false)}
                     renderItem={({ item }) => (
                       <Text className="mt-1 font-['FixelDisplay-Medium'] text-base text-black">
-                        {item.key}
+                        {item.task === "en"
+                          ? item.en
+                            ? item.en.charAt(0).toUpperCase() + item.en.slice(1)
+                            : item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
+                          : item.ua
+                          ? item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
+                          : item.en.charAt(0).toUpperCase() + item.en.slice(1)}
                       </Text>
                     )}
                   />
@@ -142,11 +235,14 @@ const TrainingScreen = ({ navigation }) => {
             </>
           ) : (
             <>
-              <TrainingProgressCircle progress={13} total={tasks?.length} />
+              <TrainingProgressCircle
+                progress={taskNumber + 1}
+                total={tasks?.length}
+              />
               <View>
                 <TextInput
                   className={`w-full h-[195px] mt-2 p-6 border-b border-light-grey rounded-t-lg bg-white font-['FixelDisplay-Regular'] text-base text-black`}
-                  editable
+                  editable={isUaEditable}
                   multiline
                   numberOfLines={4}
                   maxLength={150}
@@ -158,13 +254,22 @@ const TrainingScreen = ({ navigation }) => {
                   placeholderTextColor="#121417"
                   style={{ padding: 10 }}
                 />
-                <View className="w-full px-6 absolute bottom-6 flex-row items-center justify-between">
-                  <View className="flex-row items-center gap-x-2">
-                    <Text className="text-grey text-base">Next</Text>
-                    <TouchableOpacity onPress={() => alert("handleNext")}>
-                      <ArrowRightIcon />
-                    </TouchableOpacity>
-                  </View>
+                <View
+                  className={`w-full px-6 absolute bottom-6 flex-row items-center justify-${
+                    !isUaEditable ? "end" : "between"
+                  } ${isLastTask && "justify-end"}`}
+                >
+                  {isUaEditable && !isLastTask && (
+                    <View>
+                      <TouchableOpacity
+                        className="flex-row items-center gap-x-2"
+                        onPress={handleNext}
+                      >
+                        <Text className="text-grey text-base">Next</Text>
+                        <ArrowRightIcon />
+                      </TouchableOpacity>
+                    </View>
+                  )}
                   <View className="flex-row items-center gap-x-2">
                     <UkraineIcon />
                     <Text>Ukrainian</Text>
@@ -174,7 +279,7 @@ const TrainingScreen = ({ navigation }) => {
               <View>
                 <TextInput
                   className={`w-full h-[195px] p-6 border-light-grey rounded-b-lg bg-white font-['FixelDisplay-Regular'] text-base text-black`}
-                  editable
+                  editable={isEnEditable}
                   multiline
                   numberOfLines={4}
                   maxLength={150}
@@ -186,7 +291,22 @@ const TrainingScreen = ({ navigation }) => {
                   placeholderTextColor="#121417"
                   style={{ padding: 10 }}
                 />
-                <View className="w-full px-6 absolute bottom-6 flex-row items-center justify-end">
+                <View
+                  className={`w-full px-6 absolute bottom-6 flex-row items-center justify-${
+                    !isEnEditable ? "end" : "between"
+                  } ${isLastTask && "justify-end"}`}
+                >
+                  {isEnEditable && !isLastTask && (
+                    <View>
+                      <TouchableOpacity
+                        className="flex-row items-center gap-x-2"
+                        onPress={handleNext}
+                      >
+                        <Text className="text-grey text-base">Next</Text>
+                        <ArrowRightIcon />
+                      </TouchableOpacity>
+                    </View>
+                  )}
                   <View className="flex-row items-center gap-x-2">
                     <UnitedKingdomIcon />
                     <Text>English</Text>
@@ -195,7 +315,7 @@ const TrainingScreen = ({ navigation }) => {
               </View>
               <TouchableOpacity
                 className="mt-8 flex-2 items-center justify-center w-full h-14 bg-green rounded-[30px]"
-                onPress={() => alert("handleSave")}
+                onPress={handleSave}
               >
                 <Text className="font-['FixelDisplay-Bold'] text-base text-white">
                   Save
@@ -203,7 +323,7 @@ const TrainingScreen = ({ navigation }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 className="mx-auto bg-transparent mt-2"
-                onPress={() => alert("handleCancel")}
+                onPress={() => navigation.goBack()}
               >
                 <Text className="font-['FixelDisplay-Bold'] text-grey text-base">
                   Cancel
