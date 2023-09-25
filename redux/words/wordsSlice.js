@@ -33,7 +33,7 @@ const wordsSlice = createSlice({
     },
     statistics: null,
     tasks: null,
-    trainingResults: []
+    trainingResults: [],
   },
   extraReducers: (builder) => {
     builder

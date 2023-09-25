@@ -34,7 +34,7 @@ export const createNew = createAsyncThunk(
   async (newWordData, { rejectWithValue, dispatch }) => {
     try {
       const response = await createWord(newWordData);
-      console.log("words/createNew =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -51,7 +51,7 @@ export const getAll = createAsyncThunk(
   async (queryParams, { rejectWithValue, dispatch }) => {
     try {
       const response = await getAllWords(queryParams);
-      // console.log("words/getAll =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -68,7 +68,7 @@ export const getOwn = createAsyncThunk(
   async (queryParams, { rejectWithValue, dispatch }) => {
     try {
       const response = await getOwnWords(queryParams);
-      // console.log("words/getOwn =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -85,7 +85,7 @@ export const getOwnFiltered = createAsyncThunk(
   async (queryParams, { rejectWithValue, dispatch }) => {
     try {
       const response = await getOwnWords(queryParams);
-      // console.log("words/getOwnFiltered =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -102,7 +102,7 @@ export const getAllFiltered = createAsyncThunk(
   async (queryParams, { rejectWithValue, dispatch }) => {
     try {
       const response = await getAllWords(queryParams);
-      console.log("words/getAllFiltered =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -119,7 +119,7 @@ export const addWordFromUser = createAsyncThunk(
   async (queryParams, { rejectWithValue, dispatch }) => {
     try {
       const response = await addWord(queryParams);
-      console.log("words/addWordFromUser =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -136,7 +136,7 @@ export const deleteOwnWord = createAsyncThunk(
   async (queryParams, { rejectWithValue, dispatch }) => {
     try {
       const response = await deleteWord(queryParams);
-      console.log("words/deleteOwnWord =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -153,7 +153,7 @@ export const editOwnWord = createAsyncThunk(
   async (newWordData, { rejectWithValue, dispatch }) => {
     try {
       const response = await editWord(newWordData);
-      console.log("words/editOwnWord =>", response);
+
       alert("Edit success!");
       return response;
     } catch (error) {
@@ -171,7 +171,7 @@ export const getUserStatistics = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await getStatistics();
-      console.log("words/getUserStatistics =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -188,7 +188,7 @@ export const getUserTasks = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await getTasks();
-      console.log("words/getUserTasks =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
@@ -205,11 +205,11 @@ export const postUserAnswers = createAsyncThunk(
   async (answersArray, { rejectWithValue, dispatch }) => {
     try {
       const response = await postAnswers(answersArray);
-      console.log("words/postUserAnswers =>", response);
+
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      // console.log(error.response.data.message === 'Unauthorized');
+
       if (error.response.data.message === "Unauthorized") {
         return dispatch(logout());
       }

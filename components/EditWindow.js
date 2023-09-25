@@ -14,11 +14,7 @@ import EnglishTextInputWithLable from "./EnglishTextInputWithLable";
 import { useDispatch } from "react-redux";
 import { editOwnWord } from "../redux/words/wordsOperations";
 
-const EditWindow = ({
-  showEditWindow,
-  setShowEditWindow,
-  wordData,
-}) => {
+const EditWindow = ({ showEditWindow, setShowEditWindow, wordData }) => {
   const dispatch = useDispatch();
   const [ukrainianWord, setUkrainianWord] = useState("");
   const [englishWord, setEnglishWord] = useState("");
@@ -29,8 +25,8 @@ const EditWindow = ({
   const handleSave = () => {
     const newWordData = {
       ...wordData,
-      ua: ukrainianWord,
-      en: englishWord,
+      ua: ukrainianWord.toLowerCase(),
+      en: englishWord.toLowerCase(),
     };
     dispatch(editOwnWord(newWordData));
     setShowEditWindow(false);
@@ -58,12 +54,17 @@ const EditWindow = ({
                 </View>
                 <UkrainianTextInputWithLabel
                   ua={wordData.ua}
-                  ukrainianWord={ukrainianWord}
+                  ukrainianWord={
+                    ukrainianWord.charAt(0).toUpperCase() +
+                    ukrainianWord.slice(1)
+                  }
                   setUkrainianWord={setUkrainianWord}
                 />
                 <EnglishTextInputWithLable
                   en={wordData.en}
-                  englishWord={englishWord}
+                  englishWord={
+                    englishWord.charAt(0).toUpperCase() + englishWord.slice(1)
+                  }
                   setEnglishWord={setEnglishWord}
                 />
                 <TouchableOpacity

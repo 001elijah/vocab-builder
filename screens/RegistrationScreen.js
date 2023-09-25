@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import EyeIcon from "../assets/icons/EyeIcon";
 import { useDispatch } from "react-redux";
@@ -55,7 +55,10 @@ const RegistrationScreen = ({ navigation }) => {
             source={require("../assets/images/illustration.png")}
           />
           <View className="w-full h-full px-4 rounded-t-3xl bg-greenish">
-            <Text className="mt-8 text-3xl text-black font-['FixelDisplay-SemiBold']">
+            <Text
+              className="mt-8 text-3xl text-black font-['FixelDisplay-SemiBold']"
+              style={{ fontSize: 30 }}
+            >
               Register
             </Text>
             <Text className="mt-4 text-base text-black font-['FixelDisplay-Regular']">
@@ -63,7 +66,7 @@ const RegistrationScreen = ({ navigation }) => {
               below. All fields are mandatory:
             </Text>
             <TextInput
-              className={`h-14 w-full my-4 px-5 pb-2 border ${
+              className={`h-14 w-full my-4 px-5 border ${
                 isNameInFocus ? "border-green" : "border-light-grey"
               } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
               value={fullName}
@@ -75,7 +78,7 @@ const RegistrationScreen = ({ navigation }) => {
               blurOnSubmit={true}
             />
             <TextInput
-              className={`h-14 w-full mb-4 px-5 pb-2 border ${
+              className={`h-14 w-full mb-4 px-5 border ${
                 isEmailInFocus ? "border-green" : "border-light-grey"
               } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
               value={email}
@@ -88,7 +91,7 @@ const RegistrationScreen = ({ navigation }) => {
             />
             <View className="w-full mb-8">
               <TextInput
-                className={`h-14 pl-5 pr-10 pb-2 border ${
+                className={`h-14 pl-5 pr-10 border ${
                   isPasswordInFocus ? "border-green" : "border-light-grey"
                 } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
                 value={password}
@@ -129,6 +132,6 @@ const RegistrationScreen = ({ navigation }) => {
       </TouchableWithoutFeedback>
     </KeyboardAwareScrollView>
   );
-}
+};
 
-export default RegistrationScreen
+export default RegistrationScreen;

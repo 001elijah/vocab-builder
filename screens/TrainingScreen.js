@@ -55,13 +55,13 @@ const TrainingScreen = ({ navigation }) => {
     if (tasks) {
       setIsUaEditable(true);
       setIsEnEditable(true);
-      if (tasks[taskNumber].en) {
+      if (tasks[taskNumber]?.en) {
         setEnTranslation(tasks[taskNumber].en);
         setIsEnEditable(false);
       } else {
         setEnTranslation("");
       }
-      if (tasks[taskNumber].ua) {
+      if (tasks[taskNumber]?.ua) {
         setUaTranslation(tasks[taskNumber].ua);
         setIsUaEditable(false);
       } else {
@@ -91,12 +91,12 @@ const TrainingScreen = ({ navigation }) => {
       task: tasks[taskNumber].task,
     };
     if (enTranslation) {
-      answer.en = enTranslation;
+      answer.en = enTranslation.toLowerCase();
     } else {
       answer.en = null;
     }
     if (uaTranslation) {
-      answer.ua = uaTranslation;
+      answer.ua = uaTranslation.toLowerCase();
     } else {
       answer.ua = null;
     }
@@ -111,12 +111,12 @@ const TrainingScreen = ({ navigation }) => {
         task: tasks[taskNumber].task,
       };
       if (enTranslation) {
-        answer.en = enTranslation;
+        answer.en = enTranslation.toLowerCase();
       } else {
         answer.en = null;
       }
       if (uaTranslation) {
-        answer.ua = uaTranslation;
+        answer.ua = uaTranslation.toLowerCase();
       } else {
         answer.ua = null;
       }
@@ -129,12 +129,12 @@ const TrainingScreen = ({ navigation }) => {
         task: tasks[taskNumber].task,
       };
       if (enTranslation) {
-        answer.en = enTranslation;
+        answer.en = enTranslation.toLowerCase();
       } else {
         answer.en = null;
       }
       if (uaTranslation) {
-        answer.ua = uaTranslation;
+        answer.ua = uaTranslation.toLowerCase();
       } else {
         answer.ua = null;
       }
@@ -249,7 +249,10 @@ const TrainingScreen = ({ navigation }) => {
                   onChangeText={setUaTranslation}
                   onFocus={toggleUaFocus}
                   onBlur={toggleUaFocus}
-                  value={uaTranslation}
+                  value={
+                    uaTranslation.charAt(0).toUpperCase() +
+                    uaTranslation.slice(1)
+                  }
                   placeholder={"Введіть переклад"}
                   placeholderTextColor="#121417"
                   style={{ padding: 10 }}
@@ -286,7 +289,10 @@ const TrainingScreen = ({ navigation }) => {
                   onChangeText={setEnTranslation}
                   onFocus={toggleEnFocus}
                   onBlur={toggleEnFocus}
-                  value={enTranslation}
+                  value={
+                    enTranslation.charAt(0).toUpperCase() +
+                    enTranslation.slice(1)
+                  }
                   placeholder={"Введіть переклад"}
                   placeholderTextColor="#121417"
                   style={{ padding: 10 }}

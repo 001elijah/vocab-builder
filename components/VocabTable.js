@@ -124,8 +124,8 @@ const DataRow = ({
 
     const handleAddToDictionary = () => {
       alert(`handleAddToDictionary ${item._id}`);
-      dispatch(addWordFromUser({id: item._id}));
-    }
+      dispatch(addWordFromUser({ id: item._id }));
+    };
 
     return (
       <View className="flex-row bg-white">
@@ -203,7 +203,7 @@ const VocabTable = ({
   headerData,
   setShowEditWindow,
   setWordData,
-  vocabData
+  vocabData,
 }) => {
   const [column0Width, setColumn0Width] = useState(82);
   const [column1Width, setColumn1Width] = useState(116);

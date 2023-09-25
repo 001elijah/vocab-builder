@@ -11,7 +11,7 @@ const SearchBar = ({ onSet, searchQuery, handleSearch }) => {
 
   const handleChange = () => {
     handleSearch();
-  }
+  };
 
   useEffect(() => {
     ref.current = handleChange;
@@ -25,7 +25,7 @@ const SearchBar = ({ onSet, searchQuery, handleSearch }) => {
   return (
     <View className="mt-4">
       <TextInput
-        className={`h-14 px-6 pb-2 border ${
+        className={`h-14 px-6 border ${
           isSearchBarInFocus ? "border-green" : "border-light-grey"
         } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
         value={searchQuery}

@@ -30,9 +30,9 @@ const AddWordScreen = ({ navigation }) => {
 
   const handleAddWord = () => {
     const newWord = {
-      en: en,
-      ua: ua,
-      category: selected,
+      en: en.toLowerCase(),
+      ua: ua.toLowerCase(),
+      category: selected.toLowerCase(),
     };
     if (radioSelected)
       newWord.isIrregular = Boolean(radioSelected.value === "irregular");

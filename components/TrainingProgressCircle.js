@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import ProgressCircleWithText from '../assets/icons/ProgressCircleWithText';
+import { View, Text } from "react-native";
+import React from "react";
+import ProgressCircleWithText from "../assets/icons/ProgressCircleWithText";
 
 const TrainingProgressCircle = ({ progress, total }) => {
   return (
@@ -11,6 +11,6 @@ const TrainingProgressCircle = ({ progress, total }) => {
       <Text className="absolute">{progress}</Text>
     </View>
   );
-}
+};
 
-export default TrainingProgressCircle
+export default TrainingProgressCircle;

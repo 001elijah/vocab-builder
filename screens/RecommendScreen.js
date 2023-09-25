@@ -94,7 +94,10 @@ const RecommendScreen = ({ navigation }) => {
         <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
           To study:
         </Text>
-        <Text className="text-black text-xl"> {statistics?.totalCount}</Text>
+        <Text className="text-black text-xl" style={{ fontSize: 20 }}>
+          {" "}
+          {statistics?.totalCount}
+        </Text>
       </View>
       <View className="mt-2 flex-row items-center">
         <Text className="text-black text-xl">Train oneself</Text>

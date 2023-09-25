@@ -54,7 +54,7 @@ export const getCurrentUserInfo = createAsyncThunk(
     const { token } = getState().authorized.user;
     try {
       const userData = await currentUserApi(token);
-      console.log("authorized/getCurrentUserInfo =>", userData);
+
       return {
         user: {
           uid: userData._id,
@@ -65,8 +65,8 @@ export const getCurrentUserInfo = createAsyncThunk(
       };
     } catch (error) {
       alert(error.response.data.message);
-      if (error.response.data.message = "Unauthorized") {
-        return dispatch(logout())
+      if ((error.response.data.message = "Unauthorized")) {
+        return dispatch(logout());
       }
       return rejectWithValue(error.message);
     }

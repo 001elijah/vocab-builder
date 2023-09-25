@@ -37,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
 
     dispatch(login(userData));
   };
-  
+
   return (
     <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
@@ -54,14 +54,17 @@ const LoginScreen = ({ navigation }) => {
             Word · Translation · Grammar · Progress
           </Text>
           <View className="w-full h-full px-4 rounded-t-3xl bg-greenish">
-            <Text className="mt-8 text-3xl text-black font-['FixelDisplay-SemiBold']">
+            <Text
+              className="mt-8 text-3xl text-black font-['FixelDisplay-SemiBold']"
+              style={{ fontSize: 30 }}
+            >
               Login
             </Text>
             <Text className="mt-4 text-base text-black font-['FixelDisplay-Regular']">
               Please enter your login details to continue using our service:
             </Text>
             <TextInput
-              className={`h-14 w-full my-4 px-5 pb-2 align-middle border ${
+              className={`h-14 w-full my-4 px-5 align-middle border ${
                 isEmailInFocus ? "border-green" : "border-light-grey"
               } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
               value={email}
@@ -74,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
             />
             <View className="w-full mb-8">
               <TextInput
-                className={`h-14 pl-5 pr-10 pb-2 border ${
+                className={`h-14 pl-5 pr-10 border ${
                   isPasswordInFocus ? "border-green" : "border-light-grey"
                 } rounded-2xl font-['FixelDisplay-Regular'] text-base text-black`}
                 value={password}

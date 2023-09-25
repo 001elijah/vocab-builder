@@ -54,12 +54,12 @@ const DictionaryScreen = ({ navigation }) => {
 
   const handleSearch = () => {
     const params = {
-      keyword: searchQuery.trim(),
+      keyword: searchQuery.trim().toLowerCase(),
       page: 1,
       limit: 100,
     };
     if (searchQuery.trim().length > 0) {
-      params.keyword = searchQuery.trim();
+      params.keyword = searchQuery.trim().toLowerCase();
     } else {
       params.keyword = "";
     }
@@ -108,7 +108,7 @@ const DictionaryScreen = ({ navigation }) => {
             <Text className="font-['FixelDisplay-Regular'] text-base text-grey">
               To study:
             </Text>
-            <Text className="text-black text-xl">
+            <Text className="text-black text-xl" style={{ fontSize: 20 }}>
               {" "}
               {statistics?.totalCount}
             </Text>

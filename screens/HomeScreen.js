@@ -8,8 +8,14 @@ import StarIcon from "../assets/icons/StarIcon";
 import EditIcon from "../assets/icons/EditIcon";
 import Dictionary from "./Dictionary";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCategories, selectStatistics } from "../redux/words/wordsSelectors";
-import { getCategories, getUserStatistics } from "../redux/words/wordsOperations";
+import {
+  selectCategories,
+  selectStatistics,
+} from "../redux/words/wordsSelectors";
+import {
+  getCategories,
+  getUserStatistics,
+} from "../redux/words/wordsOperations";
 import { selectAuthorized } from "../redux/auth/authSelectors";
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +23,7 @@ const Tab = createBottomTabNavigator();
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
-  const statistics = useSelector(selectStatistics)
+  const statistics = useSelector(selectStatistics);
   const isAuthorized = useSelector(selectAuthorized);
 
   useEffect(() => {
@@ -30,11 +36,17 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    if (statistics?.totalCount === 0) {
+      navigation.navigate("Training");
+    }
+  }, [statistics]);
+
+  useEffect(() => {
     !isAuthorized && navigation.replace("Auth");
   }, [isAuthorized]);
   return (
     <Tab.Navigator
-      initialRouteName={"Training"}
+      initialRouteName={"Dictionary"}
       screenOptions={{
         tabBarActiveTintColor: "rgba(252, 252, 252, 1)",
         tabBarInactiveTintColor: "rgba(252, 252, 252, 0.5)",

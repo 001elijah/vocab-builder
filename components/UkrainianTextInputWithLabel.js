@@ -10,7 +10,7 @@ const UkrainianTextInputWithLabel = ({
   const [isUkrainianWordInFocus, setIsUkrainianWordInFocus] = useState(false);
   const toggleUkrainianInFocus = () =>
     setIsUkrainianWordInFocus(!isUkrainianWordInFocus);
-  
+
   useEffect(() => {
     setUkrainianWord(ua);
   }, [ua]);
