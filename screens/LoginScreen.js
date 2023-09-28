@@ -65,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
             className="w-64 h-48 mt-16"
             source={require("../assets/images/illustration.png")}
           />
-          <Text className="mt-4 mb-16">
+          <Text className="mt-4 mb-4">
             Word · Translation · Grammar · Progress
           </Text>
           <View className="w-full h-full px-4 rounded-t-3xl bg-greenish">
