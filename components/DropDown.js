@@ -55,7 +55,7 @@ const Dropdown = ({
           selected === item ? "text-green" : "text-black"
         }`}
       >
-        {item.charAt(0).toUpperCase() + item.slice(1)}
+        {item?.charAt(0).toUpperCase() + item.slice(1)}
       </Text>
     </TouchableOpacity>
   );

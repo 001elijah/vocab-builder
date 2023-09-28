@@ -21,7 +21,7 @@ export const getCategories = createAsyncThunk(
       return categories;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -38,7 +38,7 @@ export const createNew = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -55,7 +55,7 @@ export const getAll = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -72,7 +72,7 @@ export const getOwn = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -89,7 +89,7 @@ export const getOwnFiltered = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -106,7 +106,7 @@ export const getAllFiltered = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -123,7 +123,7 @@ export const addWordFromUser = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -140,7 +140,7 @@ export const deleteOwnWord = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -158,7 +158,7 @@ export const editOwnWord = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -175,7 +175,7 @@ export const getUserStatistics = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);
@@ -192,7 +192,7 @@ export const getUserTasks = createAsyncThunk(
       return response;
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error?.response?.data?.message ?? error.message);

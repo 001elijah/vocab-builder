@@ -202,11 +202,11 @@ const TrainingScreen = ({ navigation }) => {
                       <Text className="mt-1 font-['FixelDisplay-Medium'] text-base text-black">
                         {item.task === "en"
                           ? item.en
-                            ? item.en.charAt(0).toUpperCase() + item.en.slice(1)
-                            : item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
+                            ? item?.en.charAt(0).toUpperCase() + item?.en.slice(1)
+                            : item?.ua.charAt(0).toUpperCase() + item?.ua.slice(1)
                           : item.ua
-                          ? item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
-                          : item.en.charAt(0).toUpperCase() + item.en.slice(1)}
+                          ? item?.ua.charAt(0).toUpperCase() + item?.ua.slice(1)
+                          : item?.en.charAt(0).toUpperCase() + item?.en.slice(1)}
                       </Text>
                     )}
                   />
@@ -222,11 +222,11 @@ const TrainingScreen = ({ navigation }) => {
                       <Text className="mt-1 font-['FixelDisplay-Medium'] text-base text-black">
                         {item.task === "en"
                           ? item.en
-                            ? item.en.charAt(0).toUpperCase() + item.en.slice(1)
-                            : item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
+                            ? item.en?.charAt(0).toUpperCase() + item?.en.slice(1)
+                            : item.ua?.charAt(0).toUpperCase() + item?.ua.slice(1)
                           : item.ua
-                          ? item.ua.charAt(0).toUpperCase() + item.ua.slice(1)
-                          : item.en.charAt(0).toUpperCase() + item.en.slice(1)}
+                          ? item?.ua.charAt(0).toUpperCase() + item?.ua.slice(1)
+                          : item?.en.charAt(0).toUpperCase() + item?.en.slice(1)}
                       </Text>
                     )}
                   />
@@ -250,8 +250,8 @@ const TrainingScreen = ({ navigation }) => {
                   onFocus={toggleUaFocus}
                   onBlur={toggleUaFocus}
                   value={
-                    uaTranslation.charAt(0).toUpperCase() +
-                    uaTranslation.slice(1)
+                    uaTranslation?.charAt(0).toUpperCase() +
+                    uaTranslation?.slice(1)
                   }
                   placeholder={"Введіть переклад"}
                   placeholderTextColor="#121417"

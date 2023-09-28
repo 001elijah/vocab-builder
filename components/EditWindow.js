@@ -55,15 +55,15 @@ const EditWindow = ({ showEditWindow, setShowEditWindow, wordData }) => {
                 <UkrainianTextInputWithLabel
                   ua={wordData.ua}
                   ukrainianWord={
-                    ukrainianWord.charAt(0).toUpperCase() +
-                    ukrainianWord.slice(1)
+                    ukrainianWord?.charAt(0).toUpperCase() +
+                    ukrainianWord?.slice(1)
                   }
                   setUkrainianWord={setUkrainianWord}
                 />
                 <EnglishTextInputWithLable
                   en={wordData.en}
                   englishWord={
-                    englishWord.charAt(0).toUpperCase() + englishWord.slice(1)
+                    englishWord?.charAt(0).toUpperCase() + englishWord?.slice(1)
                   }
                   setEnglishWord={setEnglishWord}
                 />

@@ -19,15 +19,14 @@ const loginValidationSchema = yup.object().shape({
   email: yup
     .string()
     .matches(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, "Please enter valid email")
-    .required("Email Address is Required"),
+    .required("Email Address is required"),
   password: yup
     .string()
     .matches(
       /^(?=.*[a-zA-Z]{6})(?=.*\d)[a-zA-Z\d]{7}$/,
-      "Must Contain 6 Characters, One Number"
+      "Must contain 6 characters, one number"
     )
     .min(7, ({ min }) => `Password must be ${min} symbols`)
-    .max(7, ({ max }) => `Password must be ${max} symbols`)
     .required("Password is required"),
 });
 

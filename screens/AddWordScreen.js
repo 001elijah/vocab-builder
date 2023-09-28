@@ -23,16 +23,15 @@ const AddWordScreen = ({ navigation }) => {
   const [radioButtonGroupData, setRadioButtonGroupData] = useState(
     RADIO_BUTTON_GROUP_DATA
   );
-  const [ua, setUa] = useState("");
-  const [en, setEn] = useState("");
+
   const [ukrainianWord, setUkrainianWord] = useState("");
   const [englishWord, setEnglishWord] = useState("");
 
   const handleAddWord = () => {
     const newWord = {
-      en: en.toLowerCase(),
-      ua: ua.toLowerCase(),
-      category: selected.toLowerCase(),
+      en: englishWord.toLowerCase(),
+      ua: ukrainianWord.toLowerCase(),
+      category: selected,
     };
     if (radioSelected)
       newWord.isIrregular = Boolean(radioSelected.value === "irregular");
@@ -69,7 +68,7 @@ const AddWordScreen = ({ navigation }) => {
             setRadioButtonGroupData={setRadioButtonGroupData}
             onRadioSelect={setRadioSelected}
           />
-          {radioSelected?.value === "irregular" && (
+          {selected === "verb" && radioSelected?.value === "irregular" && (
             <Text className="mt-2 font-['FixelDisplay-Regular'] text-xxs text-black">
               Such data must be entered in the format I form-II form-III form.
             </Text>

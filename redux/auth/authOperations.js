@@ -65,7 +65,7 @@ export const getCurrentUserInfo = createAsyncThunk(
       };
     } catch (error) {
       alert(error.response.data.message);
-      if ((error.response.data.message = "Unauthorized")) {
+      if ((error.response.data.message === "Unauthorized")) {
         return dispatch(logout());
       }
       return rejectWithValue(error.message);

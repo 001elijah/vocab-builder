@@ -16,11 +16,11 @@ import { useDispatch } from "react-redux";
 import { register } from "../redux/auth/authOperations";
 
 const registrationValidationSchema = yup.object().shape({
-  name: yup.string().required(),
+  name: yup.string().required("Name is required"),
   email: yup
     .string()
     .matches(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, "Please enter valid email")
-    .required("Email Address is Required"),
+    .required("Email Address is required"),
   password: yup
     .string()
     .matches(
@@ -28,7 +28,6 @@ const registrationValidationSchema = yup.object().shape({
       "Must Contain 6 Characters, One Number"
     )
     .min(7, ({ min }) => `Password must be ${min} symbols`)
-    .max(7, ({ max }) => `Password must be ${max} symbols`)
     .required("Password is required"),
 });
 

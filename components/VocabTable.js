@@ -134,7 +134,7 @@ const DataRow = ({
           style={{ width: widthZero }}
         >
           <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.en.charAt(0).toUpperCase() + item.en.slice(1)}
+            {item?.en?.charAt(0).toUpperCase() + item?.en?.slice(1)}
           </Text>
         </View>
         <View
@@ -142,7 +142,7 @@ const DataRow = ({
           style={{ width: widthFirst }}
         >
           <Text className="px-3.5 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-            {item.ua.charAt(0).toUpperCase() + item.ua.slice(1)}
+            {item?.ua?.charAt(0).toUpperCase() + item?.ua?.slice(1)}
           </Text>
         </View>
         <View
@@ -156,8 +156,8 @@ const DataRow = ({
           ) : (
             <View>
               <Text className="px-3 py-4 font-['FixelDisplay-Regular'] text-base text-black">
-                {item[headerData[2].toLowerCase()].charAt(0).toUpperCase() +
-                  item[headerData[2].toLowerCase()].slice(1)}
+                {item[headerData[2].toLowerCase()]?.charAt(0).toUpperCase() +
+                  item[headerData[2].toLowerCase()]?.slice(1)}
               </Text>
             </View>
           )}
