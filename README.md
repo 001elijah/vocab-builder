@@ -16,6 +16,8 @@ https://expo.dev/accounts/001elijah/projects/vocab-builder/builds/bfd40ed2-d5b6-
 
 To run the app locally on your machine, you need to install the project dependencies first by running `npm i` in your command line in the project root folder. Then run `npm start` and you will need to scan the QR code with your phone to open the app (You need to have ExpoGo installed on your device).
 
+For request examples please see [REST API](https://vocab-builder-backend.p.goit.global/api-docs/#/)
+
 ### Documentation
 
 [Expo](https://docs.expo.dev/)
